@@ -1,0 +1,10 @@
+pandoc: 2.7.2
+pkgdown: 1.4.1
+pkgdown_sha: ~
+articles:
+  chinese: chinese.html
+  corpus: corpus.html
+  gender: gender.html
+  stemmer: stemmer.html
+  textdata: textdata.html
+
