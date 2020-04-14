@@ -40,3 +40,5 @@
 ^_pkgdown\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+cran-comments.md
+pkgdown/
