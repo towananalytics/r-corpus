@@ -18,6 +18,8 @@ n-grams).
 models, or word vectors, but it can be used in conjunction with other packages
 that provide these features.
 
+Corpus was built and maintained from 2017--2020 by [Patrick Perry](https://github.com/patperry/). It is currently maintained by [Leslie Huang](https://github.com/leslie-huang).
+
 
 Installation
 ------------
@@ -36,7 +38,7 @@ To install the latest development version, run the following:
 
     tmp <- tempfile()
     system2("git", c("clone", "--recursive",
-                     shQuote("https://github.com/patperry/r-corpus.git"), shQuote(tmp)))
+                     shQuote("https://github.com/leslie-huang/r-corpus.git"), shQuote(tmp)))
     devtools::install(tmp)
 
 Note that *corpus* uses a git submodule, so you cannot use
@@ -102,7 +104,7 @@ Here's how to find all instances of tokens that stem to "power":
 Here's how to get a term frequency matrix of all 1-, 2-, 3-, 4-, and 5-grams.
 
     > system.time(x <- term_matrix(federalist, ngrams = 1:5))
-       user  system elapsed 
+       user  system elapsed
       2.781   0.123   2.906
 
 This computation uses only a single CPU, yet it still completes in under three
@@ -157,31 +159,31 @@ The API and feature set for *corpus* draw inspiration from
 
 [apache]: https://www.apache.org/licenses/LICENSE-2.0.html "Apache License, Version 2.0"
 [apache-badge]: https://img.shields.io/badge/License-Apache%202.0-blue.svg "Apache License, Version 2.0"
-[appveyor]: https://ci.appveyor.com/project/patperry/r-corpus/branch/master "Continuous Integration (Windows)"
-[appveyor-badge]: https://ci.appveyor.com/api/projects/status/github/patperry/r-corpus?branch=master&svg=true "Continuous Inegration (Windows)"
-[bench-term-matrix]: https://github.com/patperry/bench-term-matrix#readme "Term Matrix Benchmark"
+[appveyor]: https://ci.appveyor.com/project/leslie-huang/r-corpus/branch/master "Continuous Integration (Windows)"
+[appveyor-badge]: https://ci.appveyor.com/api/projects/status/github/leslie-huang/r-corpus?branch=master&svg=true "Continuous Integration (Windows)"
+[bench-term-matrix]: https://github.com/leslie-huang/bench-term-matrix#readme "Term Matrix Benchmark"
 [bench-ndjson]: https://github.com/jeroen/ndjson-benchmark#readme "NDJSON Benchmark"
 [building]: #development-version "Building from Source"
 [casefold]: https://www.w3.org/International/wiki/Case_folding "Case Folding"
 [cc]: https://en.wikipedia.org/wiki/C0_and_C1_control_codes "C0 and C1 Control Codes"
 [codecov]: https://codecov.io/github/patperry/r-corpus?branch=master "Code Coverage"
-[codecov-badge]: https://codecov.io/github/patperry/r-corpus/coverage.svg?branch=master "Code Coverage"
-[conduct]: https://github.com/patperry/r-corpus/blob/master/CONDUCT.md "Contributor Code of Conduct"
+[codecov-badge]: https://codecov.io/github/leslie-huang/r-corpus/coverage.svg?branch=master "Code Coverage"
+[conduct]: https://github.com/leslie-huang/r-corpus/blob/master/CONDUCT.md "Contributor Code of Conduct"
 [corpus]: https://github.com/patperry/corpus "Corpus C Library"
 [corpus-intro]: http://corpustext.com/articles/corpus.html "Introduction to corpus"
 [cran]: https://cran.r-project.org/package=corpus "CRAN Page"
 [cran-badge]: http://www.r-pkg.org/badges/version/corpus "CRAN Page"
 [cranlogs-badge]: http://cranlogs.r-pkg.org/badges/corpus "CRAN Downloads"
 [emoji-print]: https://twitter.com/ptrckprry/status/887732831161425920 "MacOS Emoji Printing"
-[issues]: https://github.com/patperry/r-corpus/issues "Issues"
+[issues]: https://github.com/leslie-huang/r-corpus/issues "Issues"
 [ndjson]: http://ndjson.org/ "Newline-Delimited JSON"
 [nfc]: http://unicode.org/reports/tr15/ "Unicode Normalization Forms"
 [quanteda]: http://quanteda.io/ "Quanteda"
 [sentbreak]: http://unicode.org/reports/tr29/#Sentence_Boundaries "Unicode Text Segmentation, Sentence Boundaries"
 [stringr]: http://stringr.tidyverse.org/ "Stringr"
 [tidytext]: http://juliasilge.github.io/tidytext/ "Tidytext"
-[travis]: https://travis-ci.org/patperry/r-corpus "Continuous Integration (Linux)"
-[travis-badge]: https://api.travis-ci.org/patperry/r-corpus.svg?branch=master "Continuous Integration (Linux)"
+[travis]: https://travis-ci.org/leslie-huang/r-corpus "Continuous Integration (Linux)"
+[travis-badge]: https://api.travis-ci.org/leslie-huang/r-corpus.svg?branch=master "Continuous Integration (Linux)"
 [unicode-vignette]: http://corpustext.com/articles/unicode.html "Unicode: Emoji, accents, and international text"
 [windows-enc2utf8]: https://twitter.com/ptrckprry/status/901494853758054401 "Windows enc2utf8 Bug"
 [wordbreak]: http://unicode.org/reports/tr29/#Word_Boundaries "Unicode Text Segmentation, Word Boundaries"
