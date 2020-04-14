@@ -14,7 +14,7 @@ version 0.10.1 fixes code that was breaking due to changes in r-devel (4.0.0), r
 
 ## R CMD check results
 
-No errors, warnings, or notes. 
+No errors or warnings. 1 note regarding change in maintainer.
 
 ## Reverse dependencies
 
