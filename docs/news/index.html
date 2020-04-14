@@ -153,6 +153,19 @@
       <small>Source: <a href='https://github.com/leslie-huang/r-corpus/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="corpus-0101" class="section level1">
+<h1 class="page-header">
+<a href="#corpus-0101" class="anchor"></a>corpus 0.10.1<small> Unreleased </small>
+</h1>
+<div id="bug-fixes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>BUG FIXES</h3>
+<ul>
+<li>Fix error in <code><a href="../reference/text_locate.html">text_locate()</a></code> arising from changes to r-devel. Details here: <a href="https://stat.ethz.ch/pipermail/r-devel/2020-February/079061.html" class="uri">https://stat.ethz.ch/pipermail/r-devel/2020-February/079061.html</a>
+</li>
+</ul>
+</div>
+</div>
     <div id="corpus-01009000" class="section level1">
 <h1 class="page-header">
 <a href="#corpus-01009000" class="anchor"></a>corpus 0.10.0.9000<small> Unreleased </small>
@@ -185,9 +198,9 @@
 <h1 class="page-header">
 <a href="#corpus-094-2017-10-31" class="anchor"></a>corpus 0.9.4 (2017-10-31)<small> 2017-10-31 </small>
 </h1>
-<div id="bug-fixes" class="section level3">
+<div id="bug-fixes-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li><p>Fix bug in <code><a href="../reference/print.corpus_frame.html">print.corpus_frame(,row.names = FALSE)</a></code>.</p></li>
 <li><p>Fix failing test on R-devel.</p></li>
@@ -227,9 +240,9 @@
 <li><p>Make <code>map_quote</code> only change apostrophe and single quote characters, not double quote.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-1" class="section level3">
+<div id="bug-fixes-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-2" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li><p>Fix spurious rchk warnings.</p></li>
 <li><p>Fix failing tests on R version 3.3.</p></li>
@@ -274,9 +287,9 @@
 <li><p>Switch to 2-letter language codes for stemming algorithms.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-2" class="section level3">
+<div id="bug-fixes-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-3" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li><p>Fix bug in <code>utf8_normalize()</code> when the input contains a backslash (<code>\</code>).</p></li>
 <li><p>Fix bug in <code><a href="../reference/term_matrix.html">term_matrix()</a></code> column names (non-ASCII names were getting replaced by Unicode escapes).</p></li>
@@ -301,9 +314,9 @@
 <h1 class="page-header">
 <a href="#corpus-091-2017-08-20" class="anchor"></a>corpus 0.9.1 (2017-08-20)<small> 2017-08-20 </small>
 </h1>
-<div id="bug-fixes-3" class="section level3">
+<div id="bug-fixes-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-3" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-4" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li><p>Fix buffer overrun for case folding some Greek letters.</p></li>
 <li><p>Fix memory leak in <code><a href="../reference/read_ndjson.html">read_ndjson()</a></code>.</p></li>
@@ -355,9 +368,9 @@
 <li><p>Added “names” argument to <code>as_text()</code> for overriding default names.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-4" class="section level3">
+<div id="bug-fixes-5" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-4" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-5" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li><p>Added checks for underflow in <code><a href="../reference/read_ndjson.html">read_ndjson()</a></code> double deserialization.</p></li>
 <li><p>Fixed bug in <code>text_filter&lt;-</code> where assignment did not make a deep copy of the object.</p></li>
@@ -414,9 +427,9 @@
 <li>Deprecate <code>token_filter()</code> and <code>sentence_filter()</code>.</li>
 </ul>
 </div>
-<div id="bug-fixes-5" class="section level3">
+<div id="bug-fixes-6" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-5" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-6" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>Fixed a bug where <code><a href="../reference/read_ndjson.html">read_ndjson()</a></code> would de-serialize a boolean <code>null</code> as <code>FALSE</code> instead of <code>NA</code>.</li>
 </ul>
@@ -455,9 +468,9 @@
 <li><p>Rename <code><a href="../reference/term_matrix.html">term_counts()</a></code> <code>min</code> and <code>max</code> arguments to <code>min_count</code> and <code>max_count</code>.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-6" class="section level3">
+<div id="bug-fixes-7" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-6" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-7" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>Fixed bug where <code>"u.s"</code> (a unigram) stems to <code>"u.s"</code> (a bigram), and then causes for <code><a href="../reference/term_matrix.html">term_matrix()</a></code> select. Thanks to Dmitriy Selivanov for reporting: <a href="https://github.com/patperry/r-corpus/issues/3" class="uri">https://github.com/patperry/r-corpus/issues/3</a> .</li>
 </ul>
@@ -511,9 +524,9 @@
 <li><p>Rename <code>"jsondata"</code> to <code>"corpus_json"</code> for consistency.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-7" class="section level3">
+<div id="bug-fixes-8" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-7" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-8" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>Fix bug in <code><a href="../reference/read_ndjson.html">read_ndjson()</a></code> for reading factors with missing values.</li>
 </ul>
@@ -569,9 +582,9 @@
 <li>Add <code><a href="../reference/text_filter.html">text_filter()</a></code> options <code>drop_symbol</code>, <code>drop_number</code>, <code>drop_letter</code>, <code>drop_kana</code>, and <code>drop_ideo</code>; these options replace the matched tokens with <code>NA</code>.</li>
 </ul>
 </div>
-<div id="bug-fixes-8" class="section level3">
+<div id="bug-fixes-9" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-8" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-9" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>Fix internal function namespace clashes on Linux and other similar platforms.</li>
 </ul>
@@ -647,6 +660,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#corpus-0101">0.10.1</a></li>
         <li><a href="#corpus-01009000">0.10.0.9000</a></li>
         <li><a href="#corpus-0100-2017-12-12">0.10.0</a></li>
         <li><a href="#corpus-094-2017-10-31">0.9.4</a></li>

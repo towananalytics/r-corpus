@@ -1,3 +1,11 @@
+corpus 0.10.1
+==================
+
+### BUG FIXES
+
+   * Fix error in `text_locate()` arising from changes to r-devel. Details here:
+   https://stat.ethz.ch/pipermail/r-devel/2020-February/079061.html
+
 corpus 0.10.0.9000
 ==================
 
