@@ -38,3 +38,5 @@
 ^vignettes/gender-.*png
 ^vignettes/.*[.]in$
 ^_pkgdown\.yml$
+^.*\.Rproj$
+^\.Rproj\.user$
