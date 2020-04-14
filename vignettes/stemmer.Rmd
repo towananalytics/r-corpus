@@ -387,5 +387,4 @@ stats
 ⋮  (8766 rows total)
 ```
 
-[lexiconista]: http://www.lexiconista.com/datasets/lemmatization/ "Lexiconista Lemmatization Lists"
 [snowball]: https://snowballstem.org/ "Snowball Stemming Library"
