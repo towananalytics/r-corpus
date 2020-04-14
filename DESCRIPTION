@@ -1,9 +1,12 @@
 Package: corpus
-Version: 0.10.0.9000
+Version: 0.10.1
 Title: Text Corpus Analysis
 Authors@R: c(
+  person("Leslie Huang",
+        role = c("cre"),
+        email = "lesliehuang@nyu.edu"),
   person(c("Patrick", "O."), "Perry",
-         role = c("aut", "cph", "cre"),
+         role = c("aut", "cph"),
          email = "pperry@stern.nyu.edu"),
   person(c("Finn", "\u00c5rup"), "Nielsen",
          role = c("cph", "dtc"),
