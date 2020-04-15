@@ -124,7 +124,7 @@ corpus 0.9.2 (2017-09-20)
   * Switch `as_utf8()` default argument to `normalize = FALSE`.
 
   * Re-order `as_corpus_text()` and `as_corpus_frame()` arguments; make
-    both accept `...` arguments to override individual text filter properities.
+    both accept `...` arguments to override individual text filter properties.
 
   * Add missing single-letter initials to English abbreviation list.
 
