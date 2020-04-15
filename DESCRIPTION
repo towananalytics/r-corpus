@@ -3,7 +3,7 @@ Version: 0.10.1
 Title: Text Corpus Analysis
 Authors@R: c(
   person("Leslie Huang",
-        role = c("cre"),
+        role = c("cre", "ctb"),
         email = "lesliehuang@nyu.edu"),
   person(c("Patrick", "O."), "Perry",
          role = c("aut", "cph"),
@@ -37,7 +37,7 @@ Enhances:
   tm
 Description: Text corpus data analysis, with full support for international text (Unicode).  Functions for reading data from newline-delimited 'JSON' files, for normalizing and tokenizing text, for searching for term occurrences, and for computing term occurrence frequencies, including n-grams.
 License: Apache License (== 2.0) | file LICENSE
-URL: http://corpustext.com,
+URL: https://leslie-huang.github.io/r-corpus/,
      https://github.com/leslie-huang/r-corpus
 BugReports: https://github.com/leslie-huang/r-corpus/issues
 LazyData: Yes

@@ -166,7 +166,7 @@ The API and feature set for *corpus* draw inspiration from
 [building]: #development-version "Building from Source"
 [casefold]: https://www.w3.org/International/wiki/Case_folding "Case Folding"
 [cc]: https://en.wikipedia.org/wiki/C0_and_C1_control_codes "C0 and C1 Control Codes"
-[codecov]: https://codecov.io/github/patperry/r-corpus?branch=master "Code Coverage"
+[codecov]: https://codecov.io/github/leslie-huang/r-corpus?branch=master "Code Coverage"
 [codecov-badge]: https://codecov.io/github/leslie-huang/r-corpus/coverage.svg?branch=master "Code Coverage"
 [conduct]: https://github.com/leslie-huang/r-corpus/blob/master/CONDUCT.md "Contributor Code of Conduct"
 [corpus]: https://github.com/patperry/corpus "Corpus C Library"
