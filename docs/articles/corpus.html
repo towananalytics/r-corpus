@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">corpus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.2</span>
       </span>
     </div>
 
@@ -126,64 +126,64 @@
 <h2 class="hasAnchor">
 <a href="#setup" class="anchor"></a>Setup</h2>
 <p>We load the <em>corpus</em> package, set the color palette, and set the random number generator seed. We will not use any external packages in this vignette.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"corpus"</span>)</a>
-<a class="sourceLine" id="cb1-2" title="2"></a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="co"># colors from RColorBrewer::brewer.pal(6, "Set1")</span></a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="kw"><a href="https://rdrr.io/r/grDevices/palette.html">palette</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#E41A1C"</span>, <span class="st">"#377EB8"</span>, <span class="st">"#4DAF4A"</span>, <span class="st">"#984EA3"</span>, <span class="st">"#FF7F00"</span>, <span class="st">"#FFFF33"</span>))</a>
-<a class="sourceLine" id="cb1-5" title="5"></a>
-<a class="sourceLine" id="cb1-6" title="6"><span class="co"># ensure consistent runs</span></a>
-<a class="sourceLine" id="cb1-7" title="7"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">0</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"corpus"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># colors from RColorBrewer::brewer.pal(6, "Set1")</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw"><a href="https://rdrr.io/r/grDevices/palette.html">palette</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#E41A1C"</span>, <span class="st">"#377EB8"</span>, <span class="st">"#4DAF4A"</span>, <span class="st">"#984EA3"</span>, <span class="st">"#FF7F00"</span>, <span class="st">"#FFFF33"</span>))</span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># ensure consistent runs</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">0</span>)</span></code></pre></div>
 </div>
 <div id="data-preparation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-preparation" class="anchor"></a>Data preparation</h2>
 <p>The <em>The Wonderful Wizard of Oz</em> is available as <a href="http://www.gutenberg.org/ebooks/55" title="The Wonderful Wizard of Oz">Project Gutenberg EBook #55</a>. We first download the text and strip off the Project Gutenberg header and footer.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">url &lt;-<span class="st"> "http://www.gutenberg.org/cache/epub/55/pg55.txt"</span></a>
-<a class="sourceLine" id="cb2-2" title="2">raw &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(url, <span class="dt">encoding =</span> <span class="st">"UTF-8"</span>)</a>
-<a class="sourceLine" id="cb2-3" title="3"></a>
-<a class="sourceLine" id="cb2-4" title="4"><span class="co"># the text starts after the Project Gutenberg header...</span></a>
-<a class="sourceLine" id="cb2-5" title="5">start &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">grep</a></span>(<span class="st">"^</span><span class="ch">\\</span><span class="st">*</span><span class="ch">\\</span><span class="st">*</span><span class="ch">\\</span><span class="st">* START OF THIS PROJECT GUTENBERG EBOOK"</span>, raw) <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb2-6" title="6"></a>
-<a class="sourceLine" id="cb2-7" title="7"><span class="co"># ...end ends at the Project Gutenberg footer.</span></a>
-<a class="sourceLine" id="cb2-8" title="8">stop &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">grep</a></span>(<span class="st">"^End of Project Gutenberg"</span>, raw) <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb2-9" title="9"></a>
-<a class="sourceLine" id="cb2-10" title="10">lines &lt;-<span class="st"> </span>raw[start<span class="op">:</span>stop]</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>url &lt;-<span class="st"> "http://www.gutenberg.org/cache/epub/55/pg55.txt"</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>raw &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(url, <span class="dt">encoding =</span> <span class="st">"UTF-8"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># the text starts after the Project Gutenberg header...</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>start &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">grep</a></span>(<span class="st">"^</span><span class="ch">\\</span><span class="st">*</span><span class="ch">\\</span><span class="st">*</span><span class="ch">\\</span><span class="st">* START OF THIS PROJECT GUTENBERG EBOOK"</span>, raw) <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co"># ...end ends at the Project Gutenberg footer.</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>stop &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">grep</a></span>(<span class="st">"^End of Project Gutenberg"</span>, raw) <span class="op">-</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a>lines &lt;-<span class="st"> </span>raw[start<span class="op">:</span>stop]</span></code></pre></div>
 <p>The novel starts with front matter: a title page, table of contents, introduction, and half title page. Then, a series of chapters follow. We group the lines by section.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># the front matter ends at the half title page</span></a>
-<a class="sourceLine" id="cb3-2" title="2">half_title &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">grep</a></span>(<span class="st">"^THE WONDERFUL WIZARD OF OZ"</span>, lines)</a>
-<a class="sourceLine" id="cb3-3" title="3"></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="co"># chapters start with "1.", "2.", etc...</span></a>
-<a class="sourceLine" id="cb3-5" title="5">chapter &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">grep</a></span>(<span class="st">"^[[:space:]]*[[:digit:]]+</span><span class="ch">\\</span><span class="st">."</span>, lines)</a>
-<a class="sourceLine" id="cb3-6" title="6"></a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="co"># ... and appear after the half title page</span></a>
-<a class="sourceLine" id="cb3-8" title="8">chapter &lt;-<span class="st"> </span>chapter[chapter <span class="op">&gt;</span><span class="st"> </span>half_title]</a>
-<a class="sourceLine" id="cb3-9" title="9"></a>
-<a class="sourceLine" id="cb3-10" title="10"><span class="co"># get the section texts (including the front matter)</span></a>
-<a class="sourceLine" id="cb3-11" title="11">start &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, chapter <span class="op">+</span><span class="st"> </span><span class="dv">1</span>) <span class="co"># + 1 to skip title</span></a>
-<a class="sourceLine" id="cb3-12" title="12">end &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(chapter <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, <span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(lines))</a>
-<a class="sourceLine" id="cb3-13" title="13">text &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/mapply.html">mapply</a></span>(<span class="cf">function</span>(s, e) <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(lines[s<span class="op">:</span>e], <span class="dt">collapse =</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>), start, end)</a>
-<a class="sourceLine" id="cb3-14" title="14"></a>
-<a class="sourceLine" id="cb3-15" title="15"><span class="co"># trim leading and trailing white space</span></a>
-<a class="sourceLine" id="cb3-16" title="16">text &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/trimws.html">trimws</a></span>(text)</a>
-<a class="sourceLine" id="cb3-17" title="17"></a>
-<a class="sourceLine" id="cb3-18" title="18"><span class="co"># discard the front matter</span></a>
-<a class="sourceLine" id="cb3-19" title="19">text &lt;-<span class="st"> </span>text[<span class="op">-</span><span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb3-20" title="20"></a>
-<a class="sourceLine" id="cb3-21" title="21"><span class="co"># get the section titles, removing the prefix ("1.", "2.", etc.)</span></a>
-<a class="sourceLine" id="cb3-22" title="22">title &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">sub</a></span>(<span class="st">"^[[:space:]]*[[:digit:]]+[.][[:space:]]*"</span>, <span class="st">""</span>, lines[chapter])</a>
-<a class="sourceLine" id="cb3-23" title="23">title &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/trimws.html">trimws</a></span>(title)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># the front matter ends at the half title page</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>half_title &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">grep</a></span>(<span class="st">"^THE WONDERFUL WIZARD OF OZ"</span>, lines)</span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co"># chapters start with "1.", "2.", etc...</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>chapter &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">grep</a></span>(<span class="st">"^[[:space:]]*[[:digit:]]+</span><span class="ch">\\</span><span class="st">."</span>, lines)</span>
+<span id="cb3-6"><a href="#cb3-6"></a></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co"># ... and appear after the half title page</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>chapter &lt;-<span class="st"> </span>chapter[chapter <span class="op">&gt;</span><span class="st"> </span>half_title]</span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co"># get the section texts (including the front matter)</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>start &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, chapter <span class="op">+</span><span class="st"> </span><span class="dv">1</span>) <span class="co"># + 1 to skip title</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a>end &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(chapter <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, <span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(lines))</span>
+<span id="cb3-13"><a href="#cb3-13"></a>text &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/mapply.html">mapply</a></span>(<span class="cf">function</span>(s, e) <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(lines[s<span class="op">:</span>e], <span class="dt">collapse =</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>), start, end)</span>
+<span id="cb3-14"><a href="#cb3-14"></a></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co"># trim leading and trailing white space</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>text &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/trimws.html">trimws</a></span>(text)</span>
+<span id="cb3-17"><a href="#cb3-17"></a></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="co"># discard the front matter</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a>text &lt;-<span class="st"> </span>text[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb3-20"><a href="#cb3-20"></a></span>
+<span id="cb3-21"><a href="#cb3-21"></a><span class="co"># get the section titles, removing the prefix ("1.", "2.", etc.)</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a>title &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">sub</a></span>(<span class="st">"^[[:space:]]*[[:digit:]]+[.][[:space:]]*"</span>, <span class="st">""</span>, lines[chapter])</span>
+<span id="cb3-23"><a href="#cb3-23"></a>title &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/trimws.html">trimws</a></span>(title)</span></code></pre></div>
 </div>
 <div id="corpus-object" class="section level2">
 <h2 class="hasAnchor">
 <a href="#corpus-object" class="anchor"></a>Corpus object</h2>
 <p>Now that we have obtained our raw data, we put everything together into a corpus data frame object, constructed via the <code><a href="../reference/corpus_frame.html">corpus_frame()</a></code> function:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/corpus_frame.html">corpus_frame</a></span>(title, text)</a>
-<a class="sourceLine" id="cb4-2" title="2"></a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="co"># set the row names; not necessary but makes results easier to read</span></a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(data) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"ch%02d"</span>, <span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span>(chapter))</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/corpus_frame.html">corpus_frame</a></span>(title, text)</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co"># set the row names; not necessary but makes results easier to read</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(data) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"ch%02d"</span>, <span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span>(chapter))</span></code></pre></div>
 <p>The <code><a href="../reference/corpus_frame.html">corpus_frame()</a></code> function behaves similarly to the <code>data.frame</code> function, but expects one of the columns to be named <code>"text"</code>. Note that we do not need to specify <code>stringsAsFactors = FALSE</code> when creating a corpus data frame object. As an alternative to using the <code><a href="../reference/corpus_frame.html">corpus_frame()</a></code> function, we can construct a data frame using some other method (e.g., <code>read.csv</code> or <code>read_ndjson</code>) and use the <code><a href="../reference/corpus_frame.html">as_corpus_frame()</a></code> function.</p>
 <p>A corpus data frame object is just a data frame with a column named “text” of type <code>"corpus_text"</code>. When using the <em>corpus</em> library, it is not strictly necessary to use corpus data frame objects as inputs; most functions will accept with character vectors, ordinary data frames, <em>quanteda</em> corpus objects, and <em>tm</em> Corpus objects.. Using a native corpus object gives better printing behavior and allows setting a <code>text_filter</code> attribute to override the default text preprocessing.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(data) <span class="co"># better output than printing a data frame, cuts off after 20 rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(data) <span class="co"># better output than printing a data frame, cuts off after 20 rows</span></span></code></pre></div>
 <pre><code>     title                             text                                                    
 ch01 The Cyclone                       Dorothy lived in the midst of the great Kansas prairies…
 ch02 The Council with the Munchkins    She was awakened by a shock, so sudden and severe that …
@@ -206,7 +206,7 @@ ch18 Away to the South                 Dorothy wept bitterly at the passing of h
 ch19 Attacked by the Fighting Trees    The next morning Dorothy kissed the pretty green girl g…
 ch20 The Dainty China Country          While the Woodman was making a ladder from wood which h…
 ⋮    (24 rows total)</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(data, <span class="dv">5</span>) <span class="co"># cuts off after 5 rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(data, <span class="dv">5</span>) <span class="co"># cuts off after 5 rows</span></span></code></pre></div>
 <pre><code>     title                           text                                                      
 ch01 The Cyclone                     Dorothy lived in the midst of the great Kansas prairies, …
 ch02 The Council with the Munchkins  She was awakened by a shock, so sudden and severe that if…
@@ -214,7 +214,7 @@ ch03 How Dorothy Saved the Scarecrow When Dorothy was left alone she began to fe
 ch04 The Road Through the Forest     After a few hours the road began to be rough, and the wal…
 ch05 The Rescue of the Tin Woodman   When Dorothy awoke the sun was shining through the trees …
 ⋮    (24 rows total)</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(data, <span class="dv">-1</span>) <span class="co"># prints all rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(data, <span class="dv">-1</span>) <span class="co"># prints all rows</span></span></code></pre></div>
 <pre><code>     title                                       text                                          
 ch01 The Cyclone                                 Dorothy lived in the midst of the great Kansa…
 ch02 The Council with the Munchkins              She was awakened by a shock, so sudden and se…
@@ -245,7 +245,7 @@ ch24 Home Again                                  Aunt Em had just come out of th
 <h2 class="hasAnchor">
 <a href="#tokenization" class="anchor"></a>Tokenization</h2>
 <p>Text in <em>corpus</em> is represented as a sequence of tokens, each taking a value in a set of types. We can see the tokens for one or more elements using the <code>text_tokens</code> function:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw"><a href="../reference/text_tokens.html">text_tokens</a></span>(data[<span class="st">"ch24"</span>,]) <span class="co"># Chapter 24's tokens</span></a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw"><a href="../reference/text_tokens.html">text_tokens</a></span>(data[<span class="st">"ch24"</span>,]) <span class="co"># Chapter 24's tokens</span></span></code></pre></div>
 <pre><code>$ch24
  [1] "aunt"     "em"       "had"      "just"     "come"     "out"      "of"       "the"     
  [9] "house"    "to"       "water"    "the"      "cabbages" "when"     "she"      "looked"  
@@ -260,7 +260,7 @@ ch24 Home Again                                  Aunt Em had just come out of th
 [81] ","        "aunt"     "em"       "!"        "i'm"      "so"       "glad"     "to"      
 [89] "be"       "at"       "home"     "again"    "!"        "\""      </code></pre>
 <p>The default behavior is to normalize tokens by changing the cases of the letters to lower case. A <code>text_filter</code> object controls the rules for segmentation and normalization. We can inspect the text filter:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(data)</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(data)</span></code></pre></div>
 <pre><code>Text filter with the following options:
 
     map_case: TRUE
@@ -280,9 +280,9 @@ ch24 Home Again                                  Aunt Em had just come out of th
     sent_crlf: FALSE
     sent_suppress:  chr [1:155] "A." "A.D." "a.m." "A.M." "A.S." "AA." "AB." "Abs." "AD." ...</code></pre>
 <p>We can change the text filter properties:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(data)<span class="op">$</span>map_case &lt;-<span class="st"> </span><span class="ot">FALSE</span></a>
-<a class="sourceLine" id="cb15-2" title="2"><span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(data)<span class="op">$</span>drop_punct &lt;-<span class="st"> </span><span class="ot">TRUE</span></a>
-<a class="sourceLine" id="cb15-3" title="3"><span class="kw"><a href="../reference/text_tokens.html">text_tokens</a></span>(data[<span class="st">"ch24"</span>,])</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(data)<span class="op">$</span>map_case &lt;-<span class="st"> </span><span class="ot">FALSE</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(data)<span class="op">$</span>drop_punct &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="kw"><a href="../reference/text_tokens.html">text_tokens</a></span>(data[<span class="st">"ch24"</span>,])</span></code></pre></div>
 <pre><code>$ch24
  [1] "Aunt"     "Em"       "had"      "just"     "come"     "out"      "of"       "the"     
  [9] "house"    "to"       "water"    "the"      "cabbages" "when"     "she"      "looked"  
@@ -295,12 +295,12 @@ ch24 Home Again                                  Aunt Em had just come out of th
 [65] "Aunt"     "Em"       "I'm"      "so"       "glad"     "to"       "be"       "at"      
 [73] "home"     "again"   </code></pre>
 <p>To restore the defaults, set the text filter to <code>NULL</code>:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(data) &lt;-<span class="st"> </span><span class="ot">NULL</span></a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(data) &lt;-<span class="st"> </span><span class="ot">NULL</span></span></code></pre></div>
 <p>In addition to mapping case and quotes (the defaults), I’m going to drop punctuation.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(data) &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(<span class="dt">drop_punct =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(data) &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(<span class="dt">drop_punct =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>The tokenizer allows for precise controlling over token dropping and token stemming. It also allows combining two or more words into a single token as in the following example:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw"><a href="../reference/text_tokens.html">text_tokens</a></span>(<span class="st">"I live in New York City, New York"</span>,</a>
-<a class="sourceLine" id="cb19-2" title="2">            <span class="dt">combine =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"new york"</span>, <span class="st">"new york city"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw"><a href="../reference/text_tokens.html">text_tokens</a></span>(<span class="st">"I live in New York City, New York"</span>,</span>
+<span id="cb19-2"><a href="#cb19-2"></a>            <span class="dt">combine =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"new york"</span>, <span class="st">"new york city"</span>))</span></code></pre></div>
 <pre><code>[[1]]
 [1] "i"             "live"          "in"            "new_york_city" ","            
 [6] "new_york"     </code></pre>
@@ -311,23 +311,23 @@ ch24 Home Again                                  Aunt Em had just come out of th
 <a href="#texts-as-sequences" class="anchor"></a>Texts as sequences</h2>
 <p>The mental model of the <em>corpus</em> package is that a text is s sequence of tokens. Every object has a <code><a href="../reference/text_filter.html">text_filter()</a></code> property defining its tokens. The default token filter transforms the text to Unicode composed normal form (NFC), applies Unicode case folding, and maps curly quotes to straight quotes. Text objects, created with <code>as_corpus_text</code> or <code>as_corpus</code> can have custom text filters. You cannot set the text filter for a character vector. However, all <em>corpus</em> text functions accept a <code>filter</code> argument to override the input object’s text filter (this is demonstrated in the “New York City” example in the previous section).</p>
 <p>To find out the number of tokens in a set of texts, use the <code>text_ntoken</code> function.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw"><a href="../reference/text_tokens.html">text_tokens</a></span>(<span class="st">"One, two, three!"</span>, <span class="dt">filter =</span> <span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(<span class="dt">drop_punct =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw"><a href="../reference/text_tokens.html">text_tokens</a></span>(<span class="st">"One, two, three!"</span>, <span class="dt">filter =</span> <span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(<span class="dt">drop_punct =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
 <pre><code>[[1]]
 [1] "one"   "two"   "three"</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw"><a href="../reference/text_tokens.html">text_ntoken</a></span>(<span class="st">"One, two, three!"</span>, <span class="dt">filter =</span> <span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(<span class="dt">drop_punct =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw"><a href="../reference/text_tokens.html">text_ntoken</a></span>(<span class="st">"One, two, three!"</span>, <span class="dt">filter =</span> <span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(<span class="dt">drop_punct =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
 <pre><code>[1] 3</code></pre>
 <p>You can set subsequences of consecutive tokens using the <code>text_sub</code> function. This function accepts two arguments specifying the start and then end token position. The following example extracts the subsequences from positions 2 to 4:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw"><a href="../reference/text_sub.html">text_sub</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"One, two, three!"</span>, <span class="st">"4 5 6 7 8 9 10"</span>), <span class="dv">2</span>, <span class="dv">4</span>,</a>
-<a class="sourceLine" id="cb25-2" title="2">         <span class="dt">filter =</span> <span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(<span class="dt">drop_punct =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw"><a href="../reference/text_sub.html">text_sub</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"One, two, three!"</span>, <span class="st">"4 5 6 7 8 9 10"</span>), <span class="dv">2</span>, <span class="dv">4</span>,</span>
+<span id="cb25-2"><a href="#cb25-2"></a>         <span class="dt">filter =</span> <span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(<span class="dt">drop_punct =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
 <pre><code>[1] "two, three!" "5 6 7 "     </code></pre>
 <p>Negative indices count from the end of the sequence, with <code>-1</code> denoting the last token.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="co"># last 2 tokens</span></a>
-<a class="sourceLine" id="cb27-2" title="2"><span class="kw"><a href="../reference/text_sub.html">text_sub</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"One, two, three!"</span>, <span class="st">"4 5 6 7 8 9 10"</span>), <span class="dv">-2</span>, <span class="dv">-1</span>,</a>
-<a class="sourceLine" id="cb27-3" title="3">         <span class="dt">filter =</span> <span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(<span class="dt">drop_punct =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># last 2 tokens</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="kw"><a href="../reference/text_sub.html">text_sub</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"One, two, three!"</span>, <span class="st">"4 5 6 7 8 9 10"</span>), <span class="dv">-2</span>, <span class="dv">-1</span>,</span>
+<span id="cb27-3"><a href="#cb27-3"></a>         <span class="dt">filter =</span> <span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(<span class="dt">drop_punct =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
 <pre><code>[1] "two, three!" "9 10"       </code></pre>
 <p>Note that <code>text_ntoken</code> and <code>text_sub</code> ignore dropped tokens.</p>
 <p>Here’s how to get the last 10 tokens in each chapter:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw"><a href="../reference/text_sub.html">text_sub</a></span>(data, <span class="dv">-10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="kw"><a href="../reference/text_sub.html">text_sub</a></span>(data, <span class="dv">-10</span>)</span></code></pre></div>
 <pre><code>ch01                                                                      
 "wind,\nDorothy soon closed her eyes and fell fast asleep."               
 ch02                                                                      
@@ -378,24 +378,24 @@ ch20
 <h3 class="hasAnchor">
 <a href="#token-type-and-sentence-counts" class="anchor"></a>Token, type, and sentence counts</h3>
 <p>The <code>text_ntoken</code>, <code>text_ntype</code>, and <code>text_nsentence</code> functions return the numbers of non-dropped tokens, unique types, and sentences, respectively, in a set of texts. We can use these functions to get an overview of the section lengths and lexical diversities.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="kw"><a href="../reference/text_tokens.html">text_ntoken</a></span>(data)</a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="kw"><a href="../reference/text_tokens.html">text_ntoken</a></span>(data)</span></code></pre></div>
 <pre><code>ch01 ch02 ch03 ch04 ch05 ch06 ch07 ch08 ch09 ch10 ch11 ch12 ch13 ch14 ch15 ch16 ch17 ch18 ch19 
 1142 2001 1955 1434 2054 1498 1798 1926 1383 1950 3608 3667 1188 1885 2760  921 1151 1162 1011 
 ch20 ch21 ch22 ch23 ch24 
 1500  891  931 1250   74 </code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1"><span class="kw"><a href="../reference/text_types.html">text_ntype</a></span>(data)</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw"><a href="../reference/text_types.html">text_ntype</a></span>(data)</span></code></pre></div>
 <pre><code>ch01 ch02 ch03 ch04 ch05 ch06 ch07 ch08 ch09 ch10 ch11 ch12 ch13 ch14 ch15 ch16 ch17 ch18 ch19 
  414  567  570  454  524  458  530  517  466  539  782  788  404  557  638  316  400  379  401 
 ch20 ch21 ch22 ch23 ch24 
  511  360  364  404   56 </code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1"><span class="kw"><a href="../reference/text_split.html">text_nsentence</a></span>(data)</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw"><a href="../reference/text_split.html">text_nsentence</a></span>(data)</span></code></pre></div>
 <pre><code>ch01 ch02 ch03 ch04 ch05 ch06 ch07 ch08 ch09 ch10 ch11 ch12 ch13 ch14 ch15 ch16 ch17 ch18 ch19 
   57  131  122   81  108   96   91  102   73  110  190  176   49  100  188   71   72   87   53 
 ch20 ch21 ch22 ch23 ch24 
   88   50   50   63    8 </code></pre>
 <p>The <code>text_stats</code> function computes all three counts and presents the results in a data frame:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1">stats &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_stats.html">text_stats</a></span>(data)</a>
-<a class="sourceLine" id="cb37-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(stats, <span class="dv">-1</span>) <span class="co"># print all rows instead of truncating at 20</span></a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>stats &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_stats.html">text_stats</a></span>(data)</span>
+<span id="cb37-2"><a href="#cb37-2"></a><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(stats, <span class="dv">-1</span>) <span class="co"># print all rows instead of truncating at 20</span></span></code></pre></div>
 <pre><code>     tokens types sentences
 ch01   1142   414        57
 ch02   2001   567       131
@@ -428,9 +428,9 @@ ch24     74    56         8</code></pre>
 <a href="#application-testing-heaps-law" class="anchor"></a>Application: Testing Heaps’ law</h3>
 <p><a href="https://en.wikipedia.org/wiki/Heaps%27_law" title="Heap's law">Heaps’ law</a> says that the logarithm of the number of unique types is a linear function of the number of tokens. We can test this law formally with a regression analysis.</p>
 <p>In this analysis, we will exclude the last chapter (Chapter 24), because it is much shorter than the others and has a disproportionate influence on the fit.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1">subset &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span>(stats) <span class="op">!=</span><span class="st"> "ch24"</span></a>
-<a class="sourceLine" id="cb39-2" title="2">model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(types) <span class="op">~</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(tokens), stats, subset)</a>
-<a class="sourceLine" id="cb39-3" title="3"><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(model)</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>subset &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span>(stats) <span class="op">!=</span><span class="st"> "ch24"</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a>model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(types) <span class="op">~</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(tokens), stats, subset)</span>
+<span id="cb39-3"><a href="#cb39-3"></a><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(model)</span></code></pre></div>
 <pre><code>
 Call:
 lm(formula = log(types) ~ log(tokens), data = stats, subset = subset)
@@ -450,20 +450,20 @@ Residual standard error: 0.04894 on 21 degrees of freedom
 Multiple R-squared:  0.959, Adjusted R-squared:  0.9571 
 F-statistic: 491.6 on 1 and 21 DF,  p-value: 4.73e-16</code></pre>
 <p>We can also inspect the relation visually</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mfrow =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb41-2" title="2"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(types) <span class="op">~</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(tokens), stats, <span class="dt">col =</span> <span class="dv">2</span>, <span class="dt">subset =</span> subset)</a>
-<a class="sourceLine" id="cb41-3" title="3"><span class="kw"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span>(model, <span class="dt">col =</span> <span class="dv">1</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb41-4" title="4"></a>
-<a class="sourceLine" id="cb41-5" title="5"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(stats<span class="op">$</span>tokens[subset]), <span class="kw"><a href="https://rdrr.io/r/stats/influence.measures.html">rstandard</a></span>(model), <span class="dt">col =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb41-6" title="6">     <span class="dt">xlab =</span> <span class="st">"log(tokens)"</span>)</a>
-<a class="sourceLine" id="cb41-7" title="7"><span class="kw"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="dv">1</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb41-8" title="8"></a>
-<a class="sourceLine" id="cb41-9" title="9">outlier &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/influence.measures.html">rstandard</a></span>(model)) <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb41-10" title="10"><span class="kw"><a href="https://rdrr.io/r/graphics/text.html">text</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(stats<span class="op">$</span>tokens)[subset][outlier], <span class="kw"><a href="https://rdrr.io/r/stats/influence.measures.html">rstandard</a></span>(model)[outlier],</a>
-<a class="sourceLine" id="cb41-11" title="11">     <span class="kw"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span>(stats)[subset][outlier], <span class="dt">cex =</span> <span class="fl">0.75</span>, <span class="dt">adj =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span><span class="fl">0.25</span>, <span class="fl">0.5</span>),</a>
-<a class="sourceLine" id="cb41-12" title="12">     <span class="dt">col =</span> <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mfrow =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb41-2"><a href="#cb41-2"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(types) <span class="op">~</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(tokens), stats, <span class="dt">col =</span> <span class="dv">2</span>, <span class="dt">subset =</span> subset)</span>
+<span id="cb41-3"><a href="#cb41-3"></a><span class="kw"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span>(model, <span class="dt">col =</span> <span class="dv">1</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb41-4"><a href="#cb41-4"></a></span>
+<span id="cb41-5"><a href="#cb41-5"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(stats<span class="op">$</span>tokens[subset]), <span class="kw"><a href="https://rdrr.io/r/stats/influence.measures.html">rstandard</a></span>(model), <span class="dt">col =</span> <span class="dv">2</span>,</span>
+<span id="cb41-6"><a href="#cb41-6"></a>     <span class="dt">xlab =</span> <span class="st">"log(tokens)"</span>)</span>
+<span id="cb41-7"><a href="#cb41-7"></a><span class="kw"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="dv">1</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb41-8"><a href="#cb41-8"></a></span>
+<span id="cb41-9"><a href="#cb41-9"></a>outlier &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/influence.measures.html">rstandard</a></span>(model)) <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span></span>
+<span id="cb41-10"><a href="#cb41-10"></a><span class="kw"><a href="https://rdrr.io/r/graphics/text.html">text</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(stats<span class="op">$</span>tokens)[subset][outlier], <span class="kw"><a href="https://rdrr.io/r/stats/influence.measures.html">rstandard</a></span>(model)[outlier],</span>
+<span id="cb41-11"><a href="#cb41-11"></a>     <span class="kw"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span>(stats)[subset][outlier], <span class="dt">cex =</span> <span class="fl">0.75</span>, <span class="dt">adj =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span><span class="fl">0.25</span>, <span class="fl">0.5</span>),</span>
+<span id="cb41-12"><a href="#cb41-12"></a>     <span class="dt">col =</span> <span class="dv">2</span>)</span></code></pre></div>
 <div class="figure">
-<img src="corpus-heapslaw-1.png" alt="Heaps’ Law"><p class="caption">Heaps’ Law</p>
+<img src="corpus-heapslaw-1.png" alt=""><p class="caption">Heaps’ Law</p>
 </div>
 <p>The analysis tells us that Heap’s law accurately characterizes the lexical diversity (type-to-token ratio) for the main chapters in <em>The Wizard of Oz</em>. The number of unique types grows roughly as the number of tokens raised to the power <code>0.6</code>.</p>
 <p>The one chapter with an unusually low lexical diversity is Chapter 16. This chapter contains mostly dialogue between Oz and Dorothy’s simple-minded companions (the Scarecrow, Tin Woodman, and Lion).</p>
@@ -476,7 +476,7 @@ F-statistic: 491.6 on 1 and 21 DF,  p-value: 4.73e-16</code></pre>
 <h3 class="hasAnchor">
 <a href="#counts-and-prevalence" class="anchor"></a>Counts and prevalence</h3>
 <p>We get term statistics using the <code>term_stats</code> function:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1"><span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(data)</a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(data)</span></code></pre></div>
 <pre><code>   term    count support
 1  the      2922      24
 2  and      1661      24
@@ -501,7 +501,7 @@ F-statistic: 491.6 on 1 and 21 DF,  p-value: 4.73e-16</code></pre>
 ⋮  (2878 rows total)</code></pre>
 <p>This returns a data frame with each row giving the count and support for each term. The “count” is the total number of occurrences of the term in the corpus. The “support” is the number of texts containing the term. In the output above, we can see that “the” is the most common term, appearing 2922 times total in all 24 chapters. The pronoun “her” is the 20th most common term, appearing in all but one chapter.</p>
 <p>The most common words are English function words, commonly known as “stop” words. We can exclude these terms from the tally using the <code>subset</code> argument.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1"><span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(data, <span class="dt">subset =</span> <span class="op">!</span>term <span class="op">%in%</span><span class="st"> </span>stopwords_en)</a></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(data, <span class="dt">subset =</span> <span class="op">!</span>term <span class="op">%in%</span><span class="st"> </span>stopwords_en)</span></code></pre></div>
 <pre><code>   term      count support
 1  dorothy     345      24
 2  said        332      23
@@ -530,7 +530,7 @@ F-statistic: 491.6 on 1 and 21 DF,  p-value: 4.73e-16</code></pre>
 <h3 class="hasAnchor">
 <a href="#higher-order-n-grams" class="anchor"></a>Higher-order n-grams</h3>
 <p>Beyond searching for single-type terms, we can also search for multi-type terms (“n-grams”).</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" title="1"><span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(data, <span class="dt">ngrams =</span> <span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(data, <span class="dt">ngrams =</span> <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>   term                            count support
 1  scarecrow and the tin woodman      13       9
 2  the scarecrow and the tin          13       9
@@ -554,7 +554,7 @@ F-statistic: 491.6 on 1 and 21 DF,  p-value: 4.73e-16</code></pre>
 20 tin woodman and the lion            4       4
 ⋮  (38339 rows total)</code></pre>
 <p>The <code>types</code> argument allows us to request the component types in the result:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" title="1"><span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(data, <span class="dt">ngrams =</span> <span class="dv">3</span>, <span class="dt">types =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(data, <span class="dt">ngrams =</span> <span class="dv">3</span>, <span class="dt">types =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>   term                type1     type2     type3     count support
 1  the tin woodman     the       tin       woodman     112      18
 2  said the scarecrow  said      the       scarecrow    36      16
@@ -578,8 +578,8 @@ F-statistic: 491.6 on 1 and 21 DF,  p-value: 4.73e-16</code></pre>
 20 asked the scarecrow asked     the       scarecrow    10      10
 ⋮  (32730 rows total)</code></pre>
 <p>Here are the most common 2-, 3-grams starting with “dorothy”, where the second type is not a function word</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" title="1"><span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(data, <span class="dt">ngrams =</span> <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">types =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb50-2" title="2">           <span class="dt">subset =</span> type1 <span class="op">==</span><span class="st"> "dorothy"</span> <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>type2 <span class="op">%in%</span><span class="st"> </span>stopwords_en)</a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(data, <span class="dt">ngrams =</span> <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">types =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb50-2"><a href="#cb50-2"></a>           <span class="dt">subset =</span> type1 <span class="op">==</span><span class="st"> "dorothy"</span> <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>type2 <span class="op">%in%</span><span class="st"> </span>stopwords_en)</span></code></pre></div>
 <pre><code>   term              type1   type2    type3 count support
 1  dorothy said      dorothy said     &lt;NA&gt;      7       6
 2  dorothy went      dorothy went     &lt;NA&gt;      6       6
@@ -609,7 +609,7 @@ F-statistic: 491.6 on 1 and 21 DF,  p-value: 4.73e-16</code></pre>
 <a href="#searching-for-terms" class="anchor"></a>Searching for terms</h2>
 <p>Now that we have identified common terms, we might be interested in seeing where they appear. For this, we use the <code>text_locate</code> function.</p>
 <p>Here are all instances of the term “dorothy looked”:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1"><span class="kw"><a href="../reference/text_locate.html">text_locate</a></span>(data, <span class="st">"dorothy looked"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="kw"><a href="../reference/text_locate.html">text_locate</a></span>(data, <span class="st">"dorothy looked"</span>)</span></code></pre></div>
 <pre><code>  text                before                   instance                   after                
 1 ch02 …t from\nunder a block of wood."\n\n Dorothy looked , and gave a little cry of fright. …
 2 ch05 …as if he could not stir at all.\n\n Dorothy looked  at him in amazement, and so did th…
@@ -618,7 +618,7 @@ F-statistic: 491.6 on 1 and 21 DF,  p-value: 4.73e-16</code></pre>
 5 ch14 …the Monkey King finished his story  Dorothy looked  down and saw the\ngreen, shining w…
 6 ch16 …ly he went back to his friends.\n\n Dorothy looked  at him curiously.  His head was qu…</code></pre>
 <p>Note that we match against the type of the token, not the raw token itself, so we are able to detect capitalized “Dorothy”. This is especially useful when we want to search for a stemmed token. Here are all instances of tokens that stem to “scream”:</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" title="1"><span class="kw"><a href="../reference/text_locate.html">text_locate</a></span>(data, <span class="st">"scream"</span>, <span class="dt">stemmer =</span> <span class="st">"en"</span>) <span class="co"># english stemmer</span></a></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a><span class="kw"><a href="../reference/text_locate.html">text_locate</a></span>(data, <span class="st">"scream"</span>, <span class="dt">stemmer =</span> <span class="st">"en"</span>) <span class="co"># english stemmer</span></span></code></pre></div>
 <pre><code>  text                 before                  instance                  after                 
 1 ch01 …y the child's laughter that she would   scream  \nand press her hand upon her heart wh…
 2 ch01 …ose at hand.\n\n"Quick, Dorothy!" she  screamed .  "Run for the cellar!"\n\nToto jumpe…
@@ -626,7 +626,7 @@ F-statistic: 491.6 on 1 and 21 DF,  p-value: 4.73e-16</code></pre>
 4 ch12 …way.\n\n"See what you have done!" she  screamed .  "In a minute I shall melt\naway."\n…
 5 ch17 … air without her.\n\n"Come back!" she  screamed .  "I want to go, too!"\n\n"I can't co…</code></pre>
 <p>If we would like, we can search for multiple phrases at the same time:</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" title="1"><span class="kw"><a href="../reference/text_locate.html">text_locate</a></span>(data, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"wicked witch"</span>, <span class="st">"toto"</span>, <span class="st">"oz"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a><span class="kw"><a href="../reference/text_locate.html">text_locate</a></span>(data, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"wicked witch"</span>, <span class="st">"toto"</span>, <span class="st">"oz"</span>))</span></code></pre></div>
 <pre><code>   text                before                  instance                   after                
 1  ch01 …olemn, and rarely spoke.\n\nIt was      Toto      that made Dorothy laugh, and saved …
 2  ch01 … gray\nas her other surroundings.       Toto      was not gray; he was a little black…
@@ -650,7 +650,7 @@ F-statistic: 491.6 on 1 and 21 DF,  p-value: 4.73e-16</code></pre>
 20 ch02 …e Wicked Witch\nin all the Land of       Oz      --the one who lives in the West."\n… 
 ⋮  (303 rows total)</code></pre>
 <p>We can also request that the results be returned in random order, using the <code><a href="../reference/text_locate.html">text_sample()</a></code> function. This function takes the results from <code><a href="../reference/text_locate.html">text_locate()</a></code> and randomly orders the rows; this is useful for inspecting a random sample of the matches:</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" title="1"><span class="kw"><a href="../reference/text_locate.html">text_sample</a></span>(data, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"wicked witch"</span>, <span class="st">"toto"</span>, <span class="st">"oz"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a><span class="kw"><a href="../reference/text_locate.html">text_sample</a></span>(data, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"wicked witch"</span>, <span class="st">"toto"</span>, <span class="st">"oz"</span>))</span></code></pre></div>
 <pre><code>   text                before                  instance                   after                
 1  ch17 … just touched the\nground.\n\nThen       Oz       got into the basket and said to all…
 2  ch06 …e so tender of?"\n\n"He is my dog,      Toto     ," answered Dorothy.\n\n"Is he made …
@@ -674,17 +674,17 @@ F-statistic: 491.6 on 1 and 21 DF,  p-value: 4.73e-16</code></pre>
 20 ch10 …," said Dorothy, "to see the Great       Oz      ."\n\n"Oh, indeed!" exclaimed the ma…
 ⋮  (303 rows total)</code></pre>
 <p>Other functions allow counting term occurrences, testing for whether a term appears in a text, and getting the subset of texts containing a term:</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" title="1"><span class="kw"><a href="../reference/text_locate.html">text_count</a></span>(data, <span class="st">"the great oz"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a><span class="kw"><a href="../reference/text_locate.html">text_count</a></span>(data, <span class="st">"the great oz"</span>)</span></code></pre></div>
 <pre><code>ch01 ch02 ch03 ch04 ch05 ch06 ch07 ch08 ch09 ch10 ch11 ch12 ch13 ch14 ch15 ch16 ch17 ch18 ch19 
    0    0    3    1    1    1    0    0    0    5    3    1    0    0    2    0    0    0    0 
 ch20 ch21 ch22 ch23 ch24 
    0    0    0    0    0 </code></pre>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" title="1"><span class="kw"><a href="../reference/text_locate.html">text_detect</a></span>(data, <span class="st">"the great oz"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a><span class="kw"><a href="../reference/text_locate.html">text_detect</a></span>(data, <span class="st">"the great oz"</span>)</span></code></pre></div>
 <pre><code> ch01  ch02  ch03  ch04  ch05  ch06  ch07  ch08  ch09  ch10  ch11  ch12  ch13  ch14  ch15 
 FALSE FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE 
  ch16  ch17  ch18  ch19  ch20  ch21  ch22  ch23  ch24 
 FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE </code></pre>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" title="1"><span class="kw"><a href="../reference/text_locate.html">text_subset</a></span>(data, <span class="st">"the great oz"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a><span class="kw"><a href="../reference/text_locate.html">text_subset</a></span>(data, <span class="st">"the great oz"</span>)</span></code></pre></div>
 <pre><code>ch03                                                                                           
 "When Dorothy was left alone she began to feel hungry.  So she went to\nthe cupboard and cut …"
 ch04                                                                                           
@@ -709,7 +709,7 @@ ch15
 <h3 class="hasAnchor">
 <a href="#sentences-and-blocks-of-tokens" class="anchor"></a>Sentences and blocks of tokens</h3>
 <p><em>Corpus</em> can split text into blocks of sentences or tokens using the <code>text_split</code> function. By default, this function splits into sentences. Here, for example, are the last 10 sentences in the book:</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">tail</a></span>(<span class="kw"><a href="../reference/text_split.html">text_split</a></span>(data), <span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">tail</a></span>(<span class="kw"><a href="../reference/text_split.html">text_split</a></span>(data), <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>     parent index text                                                                         
 2207 ch23      62 Dorothy stood up and found she was in her stocking-feet.                     
 2208 ch23      63 For the\nSilver Shoes had fallen off in her flight through the air, and were…
@@ -724,8 +724,8 @@ ch15
 <p>The result of <code>text_split</code> is a data frame, with one row for each segment identifying the parent text (as a factor), the index of the segment in the parent text (an integer), and the segment text.</p>
 <p>The second argument to <code>text_split</code> specifies, the units, “sentences” or “tokens”. The third argument specifies the maximum segment size, defaulting to one. Each text gets divided into approximately equal-sized segments, with no segment being larger than the specified size.</p>
 <p>Here is an example of splitting two texts into segments of size at most four tokens.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" title="1"><span class="kw"><a href="../reference/text_split.html">text_split</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"the wonderful wizard of oz"</span>, <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(LETTERS, <span class="dt">collapse =</span> <span class="st">" "</span>)),</a>
-<a class="sourceLine" id="cb68-2" title="2">           <span class="st">"tokens"</span>, <span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a><span class="kw"><a href="../reference/text_split.html">text_split</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"the wonderful wizard of oz"</span>, <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(LETTERS, <span class="dt">collapse =</span> <span class="st">" "</span>)),</span>
+<span id="cb68-2"><a href="#cb68-2"></a>           <span class="st">"tokens"</span>, <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>  parent index text                 
 1 1          1 the wonderful wizard 
 2 1          2 of oz                
@@ -741,20 +741,20 @@ ch15
 <h3 class="hasAnchor">
 <a href="#application-witch-tracking" class="anchor"></a>Application: Witch tracking</h3>
 <p>We can combine <code>text_split</code> with <code>text_count</code> to measure the occurrences rates for the term “witch” over the course of the novel. Here, the chunks have varying sizes, so we look at the rates rather than the raw counts.</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" title="1">chunks &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_split.html">text_split</a></span>(data, <span class="st">"tokens"</span>, <span class="dv">500</span>)</a>
-<a class="sourceLine" id="cb70-2" title="2">size &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_tokens.html">text_ntoken</a></span>(chunks)</a>
-<a class="sourceLine" id="cb70-3" title="3"></a>
-<a class="sourceLine" id="cb70-4" title="4">unit &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># rate per 1000 tokens</span></a>
-<a class="sourceLine" id="cb70-5" title="5">count &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_locate.html">text_count</a></span>(chunks, <span class="st">"witch"</span>)</a>
-<a class="sourceLine" id="cb70-6" title="6">rate &lt;-<span class="st">  </span>count <span class="op">/</span><span class="st"> </span>size <span class="op">*</span><span class="st"> </span>unit</a>
-<a class="sourceLine" id="cb70-7" title="7"></a>
-<a class="sourceLine" id="cb70-8" title="8">i &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span>(rate)</a>
-<a class="sourceLine" id="cb70-9" title="9"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(i, rate, <span class="dt">type =</span> <span class="st">"l"</span>, <span class="dt">xlab =</span> <span class="st">"Segment"</span>,</a>
-<a class="sourceLine" id="cb70-10" title="10">     <span class="dt">ylab =</span> <span class="st">"Rate \u00d7 1000"</span>,</a>
-<a class="sourceLine" id="cb70-11" title="11">     <span class="dt">main =</span> <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/sQuote.html">dQuote</a></span>(<span class="st">"witch"</span>), <span class="st">"Occurrences"</span>), <span class="dt">col =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb70-12" title="12"><span class="kw"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(i, rate, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">cex =</span> <span class="fl">0.5</span>, <span class="dt">col =</span> <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1"></a>chunks &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_split.html">text_split</a></span>(data, <span class="st">"tokens"</span>, <span class="dv">500</span>)</span>
+<span id="cb70-2"><a href="#cb70-2"></a>size &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_tokens.html">text_ntoken</a></span>(chunks)</span>
+<span id="cb70-3"><a href="#cb70-3"></a></span>
+<span id="cb70-4"><a href="#cb70-4"></a>unit &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># rate per 1000 tokens</span></span>
+<span id="cb70-5"><a href="#cb70-5"></a>count &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_locate.html">text_count</a></span>(chunks, <span class="st">"witch"</span>)</span>
+<span id="cb70-6"><a href="#cb70-6"></a>rate &lt;-<span class="st">  </span>count <span class="op">/</span><span class="st"> </span>size <span class="op">*</span><span class="st"> </span>unit</span>
+<span id="cb70-7"><a href="#cb70-7"></a></span>
+<span id="cb70-8"><a href="#cb70-8"></a>i &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span>(rate)</span>
+<span id="cb70-9"><a href="#cb70-9"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(i, rate, <span class="dt">type =</span> <span class="st">"l"</span>, <span class="dt">xlab =</span> <span class="st">"Segment"</span>,</span>
+<span id="cb70-10"><a href="#cb70-10"></a>     <span class="dt">ylab =</span> <span class="st">"Rate \u00d7 1000"</span>,</span>
+<span id="cb70-11"><a href="#cb70-11"></a>     <span class="dt">main =</span> <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/sQuote.html">dQuote</a></span>(<span class="st">"witch"</span>), <span class="st">"Occurrences"</span>), <span class="dt">col =</span> <span class="dv">2</span>)</span>
+<span id="cb70-12"><a href="#cb70-12"></a><span class="kw"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(i, rate, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">cex =</span> <span class="fl">0.5</span>, <span class="dt">col =</span> <span class="dv">2</span>)</span></code></pre></div>
 <div class="figure">
-<img src="corpus-witch-occurrences-1.png" alt="‘witch’ Occurences"><p class="caption">‘witch’ Occurences</p>
+<img src="corpus-witch-occurrences-1.png" alt=""><p class="caption">‘witch’ Occurences</p>
 </div>
 <p>We can see Dorothy’s house landing on the Wicked Witch of the East in the and the subsequent fallout in the beginning of the novel. Around segment 40, we see the events surrounding Dorothy’s battle with the Wicked Witch of the West. At the end of the novel, we see the Good Witch of the South appearing to help Dorothy get home.</p>
 </div>
@@ -763,15 +763,15 @@ ch15
 <h2 class="hasAnchor">
 <a href="#term-frequency-matrix" class="anchor"></a>Term frequency matrix</h2>
 <p>Many downstream text analysis tasks require tabulating a matrix of text-term occurrence counts. We can get such a matrix using the <code>term_matrix</code> function:</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/term_matrix.html">term_matrix</a></span>(data)</a>
-<a class="sourceLine" id="cb71-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1"></a>x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/term_matrix.html">term_matrix</a></span>(data)</span>
+<span id="cb71-2"><a href="#cb71-2"></a><span class="kw"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(x)</span></code></pre></div>
 <pre><code>[1]   24 2878</code></pre>
 <p>This function returns a sparse matrix object from the <em>Matrix</em> package. In the default usage, the rows of the matrix correspond to texts, and the columns correspond to terms. For a “term-by-document” matrix, you can use the <code>transpose</code> option:</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" title="1">xt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/term_matrix.html">term_matrix</a></span>(data, <span class="dt">transpose =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1"></a>xt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/term_matrix.html">term_matrix</a></span>(data, <span class="dt">transpose =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>You can include n-grams in the result if you would like:</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" title="1">x3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/term_matrix.html">term_matrix</a></span>(data, <span class="dt">ngrams =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) <span class="co"># 1-, 2-, and 3-grams</span></a></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1"></a>x3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/term_matrix.html">term_matrix</a></span>(data, <span class="dt">ngrams =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) <span class="co"># 1-, 2-, and 3-grams</span></span></code></pre></div>
 <p>Or, you can specify the columns to include in the matrix</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" title="1">(x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/term_matrix.html">term_matrix</a></span>(data, <span class="dt">select =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"dorothy"</span>, <span class="st">"toto"</span>, <span class="st">"wicked witch"</span>, <span class="st">"the great oz"</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1"></a>(x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/term_matrix.html">term_matrix</a></span>(data, <span class="dt">select =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"dorothy"</span>, <span class="st">"toto"</span>, <span class="st">"wicked witch"</span>, <span class="st">"the great oz"</span>)))</span></code></pre></div>
 <pre><code>24 x 4 sparse Matrix of class "dgCMatrix"
      dorothy toto wicked witch the great oz
 ch01      15   10            .            .
@@ -804,7 +804,7 @@ ch24       2    1            .            .</code></pre>
 <h2 class="hasAnchor">
 <a href="#emotion-lexicon" class="anchor"></a>Emotion lexicon</h2>
 <p><em>Corpus</em> provides a lexicon of terms connoting emotional affect, the <a href="http://wndomains.fbk.eu/wnaffect.html" title="WordNet-Affect">WordNet Affect Lexicon</a>.</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" title="1">affect_wordnet</a></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1"></a>affect_wordnet</span></code></pre></div>
 <pre><code>   term             pos  category emotion 
 1  jollity          NOUN Joy      Positive
 2  joviality        NOUN Joy      Positive
@@ -828,7 +828,7 @@ ch24       2    1            .            .</code></pre>
 20 lightsomeness    NOUN Joy      Positive
 ⋮  (1641 rows total)</code></pre>
 <p>This lexicon classifies a large set of terms correlated with emotional affect into four main categories: “Positive”, “Negative”, “Ambiguous”, and “Neutral”, and a variety of sub-categories. Here is a summary:</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(affect_wordnet)</a></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1"></a><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(affect_wordnet)</span></code></pre></div>
 <pre><code>     term             pos         category        emotion   
  Length:1641        NOUN:532   Dislike:338   Positive :541  
  Class :character   ADJ :642   Sadness:199   Negative :978  
@@ -838,7 +838,7 @@ ch24       2    1            .            .</code></pre>
                                Anxiety: 97                  
                                (Other):539                  </code></pre>
 <p>Here are the term counts broken down by category:</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/with.html">with</a></span>(affect_wordnet, <span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(category, emotion))</a></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1"></a><span class="kw"><a href="https://rdrr.io/r/base/with.html">with</a></span>(affect_wordnet, <span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(category, emotion))</span></code></pre></div>
 <pre><code>              emotion
 category       Positive Negative Neutral Ambiguous
   Joy               191        0       0         0
@@ -870,8 +870,8 @@ category       Positive Negative Neutral Ambiguous
   Agitation           0        0       0        27
   Pensiveness         0        0       0        13</code></pre>
 <p>Terms can appear in multiple categories, or with multiple parts of speech.</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" title="1"><span class="co"># some duplicate terms</span></a>
-<a class="sourceLine" id="cb83-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/subset.html">subset</a></span>(affect_wordnet, term <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"caring"</span>, <span class="st">"chill"</span>, <span class="st">"hopeful"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1"></a><span class="co"># some duplicate terms</span></span>
+<span id="cb83-2"><a href="#cb83-2"></a><span class="kw"><a href="https://rdrr.io/r/base/subset.html">subset</a></span>(affect_wordnet, term <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"caring"</span>, <span class="st">"chill"</span>, <span class="st">"hopeful"</span>))</span></code></pre></div>
 <pre><code>     term    pos  category    emotion  
 209  caring  NOUN Love        Positive 
 248  caring  ADJ  Affection   Positive 
@@ -898,11 +898,11 @@ category       Positive Negative Neutral Ambiguous
 <h3 class="hasAnchor">
 <a href="#lexicon" class="anchor"></a>Lexicon</h3>
 <p>We will first need a lexicon of emotion words. We will take as a starting point the WordNet-Affect lexicon, but we will remove “Neutral” emotion words.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" title="1">affect &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/subset.html">subset</a></span>(affect_wordnet, emotion <span class="op">!=</span><span class="st"> "Neutral"</span>)</a>
-<a class="sourceLine" id="cb85-2" title="2">affect<span class="op">$</span>emotion &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/droplevels.html">droplevels</a></span>(affect<span class="op">$</span>emotion) <span class="co"># drop the unused "Neutral" level</span></a>
-<a class="sourceLine" id="cb85-3" title="3">affect<span class="op">$</span>category &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/droplevels.html">droplevels</a></span>(affect<span class="op">$</span>category) <span class="co"># drop unused categories</span></a></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1"></a>affect &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/subset.html">subset</a></span>(affect_wordnet, emotion <span class="op">!=</span><span class="st"> "Neutral"</span>)</span>
+<span id="cb85-2"><a href="#cb85-2"></a>affect<span class="op">$</span>emotion &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/droplevels.html">droplevels</a></span>(affect<span class="op">$</span>emotion) <span class="co"># drop the unused "Neutral" level</span></span>
+<span id="cb85-3"><a href="#cb85-3"></a>affect<span class="op">$</span>category &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/droplevels.html">droplevels</a></span>(affect<span class="op">$</span>category) <span class="co"># drop unused categories</span></span></code></pre></div>
 <p>Rather than blindly applying the lexicon, we first check to see what the most common emotion terms are.</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" title="1"><span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(data, <span class="dt">subset =</span> term <span class="op">%in%</span><span class="st"> </span>affect<span class="op">$</span>term)</a></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1"></a><span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(data, <span class="dt">subset =</span> term <span class="op">%in%</span><span class="st"> </span>affect<span class="op">$</span>term)</span></code></pre></div>
 <pre><code>   term       count support
 1  down          93      22
 2  great        138      20
@@ -926,7 +926,7 @@ category       Positive Negative Neutral Ambiguous
 20 dark          16       8
 ⋮  (168 rows total)</code></pre>
 <p>A few terms jump out as unusual: “yellow” is probably for the yellow brick road; “down” and “near” probably do not evoke emotions. We can inspect the usages of the most common terms using the <code>text_locate</code> function, which shows these terms in context.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" title="1"><span class="kw"><a href="../reference/text_locate.html">text_sample</a></span>(data, <span class="st">"down"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1"></a><span class="kw"><a href="../reference/text_locate.html">text_sample</a></span>(data, <span class="st">"down"</span>)</span></code></pre></div>
 <pre><code>   text                 before                 instance                  after                 
 1  ch12 …to and\nthe Lion were tired, and lay    down    upon the grass and fell asleep, with… 
 2  ch11 …d the night moving his joints up and    down   \nto make sure they kept in good worki…
@@ -951,7 +951,7 @@ category       Positive Negative Neutral Ambiguous
 ⋮  (93 rows total)</code></pre>
 <p>Here, we use the <code><a href="../reference/text_locate.html">text_sample()</a></code> instead of <code><a href="../reference/text_locate.html">text_locate()</a></code> to return the matches in random order. Since we are only looking at a subset of the matches, we use this option to ensure that we don’t make conclusions about these words using a biased sample. Using <code><a href="../reference/text_locate.html">text_locate()</a></code>, we would would only see the matches at the beginning of the novel.</p>
 <p>It looks like “down” is mostly used as a preposition, not an emotion. We will exclude it form the lexicon.</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" title="1"><span class="kw"><a href="../reference/text_locate.html">text_sample</a></span>(data, <span class="st">"good"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1"></a><span class="kw"><a href="../reference/text_locate.html">text_sample</a></span>(data, <span class="st">"good"</span>)</span></code></pre></div>
 <pre><code>   text                 before                 instance                  after                 
 1  ch11 …ued the voice.\n\n"That is where the    Good    Witch of the North kissed me when she…
 2  ch15 … Witches of the North and South were    good   , and I knew\nthey would do me no harm…
@@ -975,7 +975,7 @@ category       Positive Negative Neutral Ambiguous
 20 ch14 …s never known to hurt anyone who was    good   .  Her name\nwas Gayelette, and she li…
 ⋮  (74 rows total)</code></pre>
 <p>“Good” seems to be an appropriate emotion work, evoking positive affection or love. We will keep it in the lexicon.</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" title="1"><span class="kw"><a href="../reference/text_locate.html">text_sample</a></span>(data, <span class="st">"heart"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1"></a><span class="kw"><a href="../reference/text_locate.html">text_sample</a></span>(data, <span class="st">"heart"</span>)</span></code></pre></div>
 <pre><code>   text                 before                 instance                  after                 
 1  ch15 …w.\n\n"And you promised to give me a   heart   ," said the Tin Woodman.\n\n"And you p…
 2  ch09 …," replied the Woodman.  "I have no\n  heart   , you know, so I am careful to help al…
@@ -999,16 +999,16 @@ category       Positive Negative Neutral Ambiguous
 20 ch16 …e\nin your breast, so I can put your   heart    in the right place.  I hope it\nwon't…
 ⋮  (67 rows total)</code></pre>
 <p>“Heart” is mostly used as an object (noun), not an emotion meaning compassion. The Tin Woodman’s search for a heart is a central plot of the novel, so it is not surprising that the term shows up frequently. We can look for co-occurrences of “heart” with “woodman”:</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" title="1">loc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_locate.html">text_locate</a></span>(data, <span class="st">"heart"</span>)</a>
-<a class="sourceLine" id="cb94-2" title="2">before &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_locate.html">text_detect</a></span>(<span class="kw"><a href="../reference/text_sub.html">text_sub</a></span>(loc<span class="op">$</span>before, <span class="dv">-25</span>, <span class="dv">-1</span>), <span class="st">"woodman"</span>)</a>
-<a class="sourceLine" id="cb94-3" title="3">after &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_locate.html">text_detect</a></span>(<span class="kw"><a href="../reference/text_sub.html">text_sub</a></span>(loc<span class="op">$</span>after, <span class="dv">1</span>, <span class="dv">25</span>), <span class="st">"woodman"</span>)</a>
-<a class="sourceLine" id="cb94-4" title="4"><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(before <span class="op">|</span><span class="st"> </span>after)</a></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1"></a>loc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_locate.html">text_locate</a></span>(data, <span class="st">"heart"</span>)</span>
+<span id="cb94-2"><a href="#cb94-2"></a>before &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_locate.html">text_detect</a></span>(<span class="kw"><a href="../reference/text_sub.html">text_sub</a></span>(loc<span class="op">$</span>before, <span class="dv">-25</span>, <span class="dv">-1</span>), <span class="st">"woodman"</span>)</span>
+<span id="cb94-3"><a href="#cb94-3"></a>after &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_locate.html">text_detect</a></span>(<span class="kw"><a href="../reference/text_sub.html">text_sub</a></span>(loc<span class="op">$</span>after, <span class="dv">1</span>, <span class="dv">25</span>), <span class="st">"woodman"</span>)</span>
+<span id="cb94-4"><a href="#cb94-4"></a><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(before <span class="op">|</span><span class="st"> </span>after)</span></code></pre></div>
 <pre><code>   Mode   FALSE    TRUE 
 logical      16      51 </code></pre>
 <p>“Woodman” appears within 25 tokens of “heart” in in 45 of the 67 contexts where the latter word appears.</p>
 <p>The decision of whether to include or exclude “heart” is a difficult judgment call. Most of the time it appears, it describes an object, not an emotion. Still, that object does have an emotional association. I’m deciding to include “heart”, but this is not a clear-cut decision.</p>
 <p>We can also inspect the first token after each appearance of “yellow”:</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" title="1"><span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(<span class="kw"><a href="../reference/text_sub.html">text_sub</a></span>(<span class="kw"><a href="../reference/text_locate.html">text_locate</a></span>(data, <span class="st">"yellow"</span>)<span class="op">$</span>after, <span class="dv">1</span>, <span class="dv">1</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1"></a><span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(<span class="kw"><a href="../reference/text_sub.html">text_sub</a></span>(<span class="kw"><a href="../reference/text_locate.html">text_locate</a></span>(data, <span class="st">"yellow"</span>)<span class="op">$</span>after, <span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
 <pre><code>   term     count support
 1  brick       16      16
 2  and          3       3
@@ -1025,15 +1025,15 @@ logical      16      51 </code></pre>
 <p>Over half the time, “yellow” prefaces “brick” or “bricks”, and otherwise it describes objects. It does not describe or evoke emotion, and we should exclude it from the lexicon.</p>
 <p>Similar analysis not shown here indicates that “great” is mostly used to describe size, not positive enthusiasm; “like” is often used to mean “similar to”, not “affection for”; “blue” is mostly used as a color, not an emotion.</p>
 <p>All of this analysis shows that we should probably exclude some of the common terms from the lexicon.</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" title="1">affect &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/subset.html">subset</a></span>(affect, <span class="op">!</span>term <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"down"</span>, <span class="st">"great"</span>, <span class="st">"like"</span>, <span class="st">"yellow"</span>, <span class="st">"near"</span>, <span class="st">"low"</span>, <span class="st">"blue"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1"></a>affect &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/subset.html">subset</a></span>(affect, <span class="op">!</span>term <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"down"</span>, <span class="st">"great"</span>, <span class="st">"like"</span>, <span class="st">"yellow"</span>, <span class="st">"near"</span>, <span class="st">"low"</span>, <span class="st">"blue"</span>))</span></code></pre></div>
 </div>
 <div id="term-emotion-matrix" class="section level3">
 <h3 class="hasAnchor">
 <a href="#term-emotion-matrix" class="anchor"></a>Term emotion matrix</h3>
 <p>Now that we have a lexicon, our plan is to segment the text into smaller chunks and then compute the emotion occurrence rates in each chunk, broken down by category (“Positive”, “Negative”, or “Ambiguous”).</p>
 <p>To facilitate the rate computations, we will form a term-by-emotion rate for the lexicon:</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" title="1">term_scores &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/with.html">with</a></span>(affect, <span class="kw"><a href="https://rdrr.io/r/base/class.html">unclass</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(term, emotion)))</a>
-<a class="sourceLine" id="cb99-2" title="2"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(term_scores)</a></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1"></a>term_scores &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/with.html">with</a></span>(affect, <span class="kw"><a href="https://rdrr.io/r/base/class.html">unclass</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(term, emotion)))</span>
+<span id="cb99-2"><a href="#cb99-2"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(term_scores)</span></code></pre></div>
 <pre><code>            emotion
 term         Positive Negative Ambiguous
   abase             0        2         0
@@ -1044,18 +1044,18 @@ term         Positive Negative Ambiguous
   abhorrence        0        1         0</code></pre>
 <p>Here, <code>term_scores</code> is a matrix with entry <em>(i,j)</em> indicating the number of times that term <em>i</em> appeared in the affect lexicon with emotion <em>j</em>.</p>
 <p>We re-classify any term appearing in two or more categories as ambiguous:</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" title="1">ncat &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span>(term_scores <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb101-2" title="2">term_scores[ncat <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Positive"</span>, <span class="st">"Negative"</span>, <span class="st">"Ambiguous"</span>)] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1"></a>ncat &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span>(term_scores <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</span>
+<span id="cb101-2"><a href="#cb101-2"></a>term_scores[ncat <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Positive"</span>, <span class="st">"Negative"</span>, <span class="st">"Ambiguous"</span>)] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span></code></pre></div>
 <p>At this point, every term is in one category, but the score for the term could be 2, 3, or more, depending on the number of sub-categories the term appeared in. We replace these larger values with one.</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" title="1">term_scores[term_scores <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1"></a>term_scores[term_scores <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">1</span></span></code></pre></div>
 </div>
 <div id="segmenting-chapters-into-smaller-chunks" class="section level3">
 <h3 class="hasAnchor">
 <a href="#segmenting-chapters-into-smaller-chunks" class="anchor"></a>Segmenting chapters into smaller chunks</h3>
 <p>To compute emotion occurrence rates, we start by splitting each chapter into equal-sized segments of at most 500 tokens. The specific size of 500 tokens is somewhat arbitrary, but not entirely so. We want the segments to be large enough so that our rate estimates are reliable, but not so large that the emotion usage is heterogeneous within the segment.</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" title="1">chunks &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_split.html">text_split</a></span>(data, <span class="st">"tokens"</span>, <span class="dv">500</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1"></a>chunks &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_split.html">text_split</a></span>(data, <span class="st">"tokens"</span>, <span class="dv">500</span>)</span></code></pre></div>
 <p>Within a chapter, the segments all have approximately the same size. However, since the chapters have different lengths, there is some variation in segment size across chapters:</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" title="1">(n &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_tokens.html">text_ntoken</a></span>(chunks))</a></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1"></a>(n &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_tokens.html">text_ntoken</a></span>(chunks))</span></code></pre></div>
 <pre><code> [1] 381 381 380 401 400 400 400 400 489 489 489 488 478 478 478 411 411 411 411 410 500 499
 [23] 499 450 450 449 449 482 482 481 481 461 461 461 488 488 487 487 451 451 451 451 451 451
 [45] 451 451 459 459 459 458 458 458 458 458 396 396 396 472 471 471 471 460 460 460 460 460
@@ -1067,93 +1067,93 @@ term         Positive Negative Ambiguous
 <h3 class="hasAnchor">
 <a href="#computing-emotion-rates" class="anchor"></a>Computing emotion rates</h3>
 <p>For the count of each emotion category in each segment, we form a text-by-term matrix of counts, and then multiply this by the term-by-emotion score matrix.</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" title="1">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/term_matrix.html">term_matrix</a></span>(chunks, <span class="dt">select =</span> <span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(term_scores))</a>
-<a class="sourceLine" id="cb106-2" title="2">text_scores &lt;-<span class="st"> </span>x <span class="op">%*%</span><span class="st"> </span>term_scores</a></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1"></a>x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/term_matrix.html">term_matrix</a></span>(chunks, <span class="dt">select =</span> <span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(term_scores))</span>
+<span id="cb106-2"><a href="#cb106-2"></a>text_scores &lt;-<span class="st"> </span>x <span class="op">%*%</span><span class="st"> </span>term_scores</span></code></pre></div>
 <p>For the occurrence rates, we divide the counts by the segment sizes. We then multiply by 1000 so that rates are given as occurrences per 1000 tokens.</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" title="1"><span class="co"># compute the rates per 1000 tokens</span></a>
-<a class="sourceLine" id="cb107-2" title="2">unit &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb107-3" title="3">rate &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">pos =</span> text_scores[, <span class="st">"Positive"</span>] <span class="op">/</span><span class="st"> </span>n <span class="op">*</span><span class="st"> </span>unit,</a>
-<a class="sourceLine" id="cb107-4" title="4">             <span class="dt">neg =</span> text_scores[, <span class="st">"Negative"</span>] <span class="op">/</span><span class="st"> </span>n <span class="op">*</span><span class="st"> </span>unit,</a>
-<a class="sourceLine" id="cb107-5" title="5">             <span class="dt">ambig =</span> text_scores[, <span class="st">"Ambiguous"</span>] <span class="op">/</span><span class="st"> </span>n <span class="op">*</span><span class="st"> </span>unit)</a>
-<a class="sourceLine" id="cb107-6" title="6">rate<span class="op">$</span>total &lt;-<span class="st"> </span>rate<span class="op">$</span>pos <span class="op">+</span><span class="st"> </span>rate<span class="op">$</span>neg <span class="op">+</span><span class="st"> </span>rate<span class="op">$</span>ambig</a></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1"></a><span class="co"># compute the rates per 1000 tokens</span></span>
+<span id="cb107-2"><a href="#cb107-2"></a>unit &lt;-<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb107-3"><a href="#cb107-3"></a>rate &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">pos =</span> text_scores[, <span class="st">"Positive"</span>] <span class="op">/</span><span class="st"> </span>n <span class="op">*</span><span class="st"> </span>unit,</span>
+<span id="cb107-4"><a href="#cb107-4"></a>             <span class="dt">neg =</span> text_scores[, <span class="st">"Negative"</span>] <span class="op">/</span><span class="st"> </span>n <span class="op">*</span><span class="st"> </span>unit,</span>
+<span id="cb107-5"><a href="#cb107-5"></a>             <span class="dt">ambig =</span> text_scores[, <span class="st">"Ambiguous"</span>] <span class="op">/</span><span class="st"> </span>n <span class="op">*</span><span class="st"> </span>unit)</span>
+<span id="cb107-6"><a href="#cb107-6"></a>rate<span class="op">$</span>total &lt;-<span class="st"> </span>rate<span class="op">$</span>pos <span class="op">+</span><span class="st"> </span>rate<span class="op">$</span>neg <span class="op">+</span><span class="st"> </span>rate<span class="op">$</span>ambig</span></code></pre></div>
 <p>We use the binomial variance formula to get the standard errors:</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" title="1"><span class="co"># compute the standard errors</span></a>
-<a class="sourceLine" id="cb108-2" title="2">se &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(rate, <span class="cf">function</span>(r) <span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(r <span class="op">*</span><span class="st"> </span>(unit <span class="op">-</span><span class="st"> </span>r) <span class="op">/</span><span class="st"> </span>n))</a></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1"></a><span class="co"># compute the standard errors</span></span>
+<span id="cb108-2"><a href="#cb108-2"></a>se &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(rate, <span class="cf">function</span>(r) <span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(r <span class="op">*</span><span class="st"> </span>(unit <span class="op">-</span><span class="st"> </span>r) <span class="op">/</span><span class="st"> </span>n))</span></code></pre></div>
 <p>This is a crude estimate that makes some independence assumptions, but it gives a reasonable approximation of the uncertainty associated with our measured rates.</p>
 </div>
 <div id="plotting-the-results" class="section level3">
 <h3 class="hasAnchor">
 <a href="#plotting-the-results" class="anchor"></a>Plotting the results</h3>
 <p>We plot the four rate curves as time series. Our main focus is on the total emotion usage. For this curve, we also put a horizontal dashed line at its mean, and we indicating the “interesting” segments, those that appear more than two standard deviations away from the main, by putting error bars on these points.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" title="1"><span class="co"># set up segment IDs</span></a>
-<a class="sourceLine" id="cb109-2" title="2">i &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(chunks))</a>
-<a class="sourceLine" id="cb109-3" title="3"></a>
-<a class="sourceLine" id="cb109-4" title="4"><span class="co"># set the plot margins, with extra space below the plot</span></a>
-<a class="sourceLine" id="cb109-5" title="5"><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mar =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">11</span>, <span class="dv">9</span>) <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>, <span class="dt">las =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb109-6" title="6"></a>
-<a class="sourceLine" id="cb109-7" title="7"><span class="co"># set up the plot coordinates; put labels but no axes</span></a>
-<a class="sourceLine" id="cb109-8" title="8">xlim &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/range.html">range</a></span>(i <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span>, i <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb109-9" title="9">ylim &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/range.html">range</a></span>(<span class="dv">0</span>, rate<span class="op">$</span>total <span class="op">+</span><span class="st"> </span>se<span class="op">$</span>total, rate<span class="op">$</span>total <span class="op">-</span><span class="st"> </span>se<span class="op">$</span>total)</a>
-<a class="sourceLine" id="cb109-10" title="10"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(xlim, ylim, <span class="dt">type =</span> <span class="st">"n"</span>, <span class="dt">xlab =</span> <span class="st">"Segment"</span>, <span class="dt">ylab =</span> <span class="st">"Rate \u00d7 1000"</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb109-11" title="11">     <span class="dt">xaxs =</span> <span class="st">"i"</span>)</a>
-<a class="sourceLine" id="cb109-12" title="12">usr &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="st">"usr"</span>) <span class="co"># get the user coordinates for later</span></a>
-<a class="sourceLine" id="cb109-13" title="13"></a>
-<a class="sourceLine" id="cb109-14" title="14"><span class="co"># put tick marks at multiples of 5 on the x axis; labels at multiples of 10</span></a>
-<a class="sourceLine" id="cb109-15" title="15"><span class="kw"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span>(<span class="dv">1</span>, <span class="dt">at =</span> i[i <span class="op">%%</span><span class="st"> </span><span class="dv">5</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>], <span class="dt">labels =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb109-16" title="16"><span class="kw"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span>(<span class="dv">1</span>, <span class="dt">at =</span> i[i <span class="op">%%</span><span class="st"> </span><span class="dv">10</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>], <span class="dt">labels =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb109-17" title="17"></a>
-<a class="sourceLine" id="cb109-18" title="18"><span class="co"># defaults for the y axis</span></a>
-<a class="sourceLine" id="cb109-19" title="19"><span class="kw"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span>(<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb109-20" title="20"></a>
-<a class="sourceLine" id="cb109-21" title="21"><span class="co"># put vertical lines at chapter boundaries</span></a>
-<a class="sourceLine" id="cb109-22" title="22"><span class="kw"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span>(<span class="dt">v =</span> <span class="kw"><a href="https://rdrr.io/r/base/tapply.html">tapply</a></span>(i, chunks<span class="op">$</span>parent, min) <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span>, <span class="dt">col =</span> <span class="st">"gray"</span>)</a>
-<a class="sourceLine" id="cb109-23" title="23"></a>
-<a class="sourceLine" id="cb109-24" title="24"><span class="co"># put chapter titles above the plot</span></a>
-<a class="sourceLine" id="cb109-25" title="25">labels &lt;-<span class="st"> </span>data<span class="op">$</span>title</a>
-<a class="sourceLine" id="cb109-26" title="26">at &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/tapply.html">tapply</a></span>(i, chunks<span class="op">$</span>parent, mean)</a>
-<a class="sourceLine" id="cb109-27" title="27"></a>
-<a class="sourceLine" id="cb109-28" title="28"><span class="co"># (adapted from https://www.r-bloggers.com/rotated-axis-labels-in-r-plots/)</span></a>
-<a class="sourceLine" id="cb109-29" title="29"><span class="kw"><a href="https://rdrr.io/r/graphics/text.html">text</a></span>(at, usr[<span class="dv">4</span>] <span class="op">+</span><span class="st"> </span><span class="fl">0.01</span> <span class="op">*</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/diff.html">diff</a></span>(usr[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>]),</a>
-<a class="sourceLine" id="cb109-30" title="30">     <span class="dt">labels =</span> labels, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">srt =</span> <span class="dv">45</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">xpd =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb109-31" title="31"></a>
-<a class="sourceLine" id="cb109-32" title="32"><span class="co"># frame the plot</span></a>
-<a class="sourceLine" id="cb109-33" title="33"><span class="kw"><a href="https://rdrr.io/r/graphics/box.html">box</a></span>()</a>
-<a class="sourceLine" id="cb109-34" title="34"></a>
-<a class="sourceLine" id="cb109-35" title="35"><span class="co"># colors for the different emotions, from RColorBrewer::brewer.pal(3, "Set2")</span></a>
-<a class="sourceLine" id="cb109-36" title="36">col &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">total =</span> <span class="st">"#000000"</span>, <span class="dt">pos =</span> <span class="st">"#FC8D62"</span>, <span class="dt">neg =</span> <span class="st">"#8DA0CB"</span>, <span class="dt">ambig =</span> <span class="st">"#66C2A5"</span>)</a>
-<a class="sourceLine" id="cb109-37" title="37"></a>
-<a class="sourceLine" id="cb109-38" title="38"><span class="co"># add a legend on the right hand side</span></a>
-<a class="sourceLine" id="cb109-39" title="39"><span class="kw"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span>(usr[<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span><span class="fl">0.015</span> <span class="op">*</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/diff.html">diff</a></span>(usr[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]), usr[<span class="dv">3</span>] <span class="op">+</span><span class="st"> </span><span class="fl">0.8</span> <span class="op">*</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/diff.html">diff</a></span>(usr[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>]),</a>
-<a class="sourceLine" id="cb109-40" title="40">       <span class="dt">legend =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Total"</span>, <span class="st">"Positive"</span>, <span class="st">"Negative"</span>, <span class="st">"Ambiguous"</span>),</a>
-<a class="sourceLine" id="cb109-41" title="41">       <span class="dt">title =</span> <span class="kw"><a href="https://rdrr.io/r/base/expression.html">expression</a></span>(<span class="kw"><a href="https://rdrr.io/r/grDevices/plotmath.html">bold</a></span>(<span class="st">"Emotion"</span>)),</a>
-<a class="sourceLine" id="cb109-42" title="42">       <span class="dt">fill =</span> col[<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"total"</span>, <span class="st">"pos"</span>, <span class="st">"neg"</span>, <span class="st">"ambig"</span>)],</a>
-<a class="sourceLine" id="cb109-43" title="43">       <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">xpd =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb109-44" title="44"></a>
-<a class="sourceLine" id="cb109-45" title="45"><span class="co"># for the total rate, put a dashed line at the mean rate</span></a>
-<a class="sourceLine" id="cb109-46" title="46"><span class="kw"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span>(<span class="dt">h =</span> <span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(rate<span class="op">$</span>total), <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">col =</span> col[[<span class="st">"total"</span>]])</a>
-<a class="sourceLine" id="cb109-47" title="47"></a>
-<a class="sourceLine" id="cb109-48" title="48"><span class="co"># plot each rate type</span></a>
-<a class="sourceLine" id="cb109-49" title="49"><span class="cf">for</span> (t <span class="cf">in</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"ambig"</span>, <span class="st">"neg"</span>, <span class="st">"pos"</span>, <span class="st">"total"</span>)) {</a>
-<a class="sourceLine" id="cb109-50" title="50">    r &lt;-<span class="st"> </span>rate[[t]]</a>
-<a class="sourceLine" id="cb109-51" title="51">    s &lt;-<span class="st"> </span>se[[t]]</a>
-<a class="sourceLine" id="cb109-52" title="52">    cl &lt;-<span class="st"> </span>col[[t]]</a>
-<a class="sourceLine" id="cb109-53" title="53"></a>
-<a class="sourceLine" id="cb109-54" title="54">    <span class="co"># add lines and points</span></a>
-<a class="sourceLine" id="cb109-55" title="55">    <span class="kw"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(i, r, <span class="dt">col =</span> cl)</a>
-<a class="sourceLine" id="cb109-56" title="56">    <span class="kw"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(i, r, <span class="dt">col =</span> cl, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">cex =</span> <span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb109-57" title="57"></a>
-<a class="sourceLine" id="cb109-58" title="58">    <span class="co"># for the total, put standard errors around interesting points</span></a>
-<a class="sourceLine" id="cb109-59" title="59">    <span class="cf">if</span> (t <span class="op">==</span><span class="st"> "total"</span>) {</a>
-<a class="sourceLine" id="cb109-60" title="60">        <span class="co"># "interesting" defined as rate &gt;2 sd away from mean</span></a>
-<a class="sourceLine" id="cb109-61" title="61">        int &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>((r <span class="op">-</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(r)) <span class="op">/</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(r)) <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb109-62" title="62"></a>
-<a class="sourceLine" id="cb109-63" title="63">        <span class="kw"><a href="https://rdrr.io/r/graphics/segments.html">segments</a></span>(i[int], (r <span class="op">-</span><span class="st"> </span>s)[int], i[int], (r <span class="op">+</span><span class="st"> </span>s)[int], <span class="dt">col =</span> cl)</a>
-<a class="sourceLine" id="cb109-64" title="64">        <span class="kw"><a href="https://rdrr.io/r/graphics/segments.html">segments</a></span>((i <span class="op">-</span><span class="st"> </span><span class="fl">.2</span>)[int], (r <span class="op">-</span><span class="st"> </span>s)[int], (i <span class="op">+</span><span class="st"> </span><span class="fl">.2</span>)[int], (r <span class="op">-</span><span class="st"> </span>s)[int], <span class="dt">col =</span> cl)</a>
-<a class="sourceLine" id="cb109-65" title="65">        <span class="kw"><a href="https://rdrr.io/r/graphics/segments.html">segments</a></span>((i <span class="op">-</span><span class="st"> </span><span class="fl">.2</span>)[int], (r <span class="op">+</span><span class="st"> </span>s)[int], (i <span class="op">+</span><span class="st"> </span><span class="fl">.2</span>)[int], (r <span class="op">+</span><span class="st"> </span>s)[int], <span class="dt">col =</span> cl)</a>
-<a class="sourceLine" id="cb109-66" title="66">    }</a>
-<a class="sourceLine" id="cb109-67" title="67">}</a></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1"></a><span class="co"># set up segment IDs</span></span>
+<span id="cb109-2"><a href="#cb109-2"></a>i &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(chunks))</span>
+<span id="cb109-3"><a href="#cb109-3"></a></span>
+<span id="cb109-4"><a href="#cb109-4"></a><span class="co"># set the plot margins, with extra space below the plot</span></span>
+<span id="cb109-5"><a href="#cb109-5"></a><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mar =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">11</span>, <span class="dv">9</span>) <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>, <span class="dt">las =</span> <span class="dv">1</span>)</span>
+<span id="cb109-6"><a href="#cb109-6"></a></span>
+<span id="cb109-7"><a href="#cb109-7"></a><span class="co"># set up the plot coordinates; put labels but no axes</span></span>
+<span id="cb109-8"><a href="#cb109-8"></a>xlim &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/range.html">range</a></span>(i <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span>, i <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span>)</span>
+<span id="cb109-9"><a href="#cb109-9"></a>ylim &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/range.html">range</a></span>(<span class="dv">0</span>, rate<span class="op">$</span>total <span class="op">+</span><span class="st"> </span>se<span class="op">$</span>total, rate<span class="op">$</span>total <span class="op">-</span><span class="st"> </span>se<span class="op">$</span>total)</span>
+<span id="cb109-10"><a href="#cb109-10"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(xlim, ylim, <span class="dt">type =</span> <span class="st">"n"</span>, <span class="dt">xlab =</span> <span class="st">"Segment"</span>, <span class="dt">ylab =</span> <span class="st">"Rate \u00d7 1000"</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb109-11"><a href="#cb109-11"></a>     <span class="dt">xaxs =</span> <span class="st">"i"</span>)</span>
+<span id="cb109-12"><a href="#cb109-12"></a>usr &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="st">"usr"</span>) <span class="co"># get the user coordinates for later</span></span>
+<span id="cb109-13"><a href="#cb109-13"></a></span>
+<span id="cb109-14"><a href="#cb109-14"></a><span class="co"># put tick marks at multiples of 5 on the x axis; labels at multiples of 10</span></span>
+<span id="cb109-15"><a href="#cb109-15"></a><span class="kw"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span>(<span class="dv">1</span>, <span class="dt">at =</span> i[i <span class="op">%%</span><span class="st"> </span><span class="dv">5</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>], <span class="dt">labels =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb109-16"><a href="#cb109-16"></a><span class="kw"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span>(<span class="dv">1</span>, <span class="dt">at =</span> i[i <span class="op">%%</span><span class="st"> </span><span class="dv">10</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>], <span class="dt">labels =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb109-17"><a href="#cb109-17"></a></span>
+<span id="cb109-18"><a href="#cb109-18"></a><span class="co"># defaults for the y axis</span></span>
+<span id="cb109-19"><a href="#cb109-19"></a><span class="kw"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span>(<span class="dv">2</span>)</span>
+<span id="cb109-20"><a href="#cb109-20"></a></span>
+<span id="cb109-21"><a href="#cb109-21"></a><span class="co"># put vertical lines at chapter boundaries</span></span>
+<span id="cb109-22"><a href="#cb109-22"></a><span class="kw"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span>(<span class="dt">v =</span> <span class="kw"><a href="https://rdrr.io/r/base/tapply.html">tapply</a></span>(i, chunks<span class="op">$</span>parent, min) <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span>, <span class="dt">col =</span> <span class="st">"gray"</span>)</span>
+<span id="cb109-23"><a href="#cb109-23"></a></span>
+<span id="cb109-24"><a href="#cb109-24"></a><span class="co"># put chapter titles above the plot</span></span>
+<span id="cb109-25"><a href="#cb109-25"></a>labels &lt;-<span class="st"> </span>data<span class="op">$</span>title</span>
+<span id="cb109-26"><a href="#cb109-26"></a>at &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/tapply.html">tapply</a></span>(i, chunks<span class="op">$</span>parent, mean)</span>
+<span id="cb109-27"><a href="#cb109-27"></a></span>
+<span id="cb109-28"><a href="#cb109-28"></a><span class="co"># (adapted from https://www.r-bloggers.com/rotated-axis-labels-in-r-plots/)</span></span>
+<span id="cb109-29"><a href="#cb109-29"></a><span class="kw"><a href="https://rdrr.io/r/graphics/text.html">text</a></span>(at, usr[<span class="dv">4</span>] <span class="op">+</span><span class="st"> </span><span class="fl">0.01</span> <span class="op">*</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/diff.html">diff</a></span>(usr[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>]),</span>
+<span id="cb109-30"><a href="#cb109-30"></a>     <span class="dt">labels =</span> labels, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">srt =</span> <span class="dv">45</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">xpd =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb109-31"><a href="#cb109-31"></a></span>
+<span id="cb109-32"><a href="#cb109-32"></a><span class="co"># frame the plot</span></span>
+<span id="cb109-33"><a href="#cb109-33"></a><span class="kw"><a href="https://rdrr.io/r/graphics/box.html">box</a></span>()</span>
+<span id="cb109-34"><a href="#cb109-34"></a></span>
+<span id="cb109-35"><a href="#cb109-35"></a><span class="co"># colors for the different emotions, from RColorBrewer::brewer.pal(3, "Set2")</span></span>
+<span id="cb109-36"><a href="#cb109-36"></a>col &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">total =</span> <span class="st">"#000000"</span>, <span class="dt">pos =</span> <span class="st">"#FC8D62"</span>, <span class="dt">neg =</span> <span class="st">"#8DA0CB"</span>, <span class="dt">ambig =</span> <span class="st">"#66C2A5"</span>)</span>
+<span id="cb109-37"><a href="#cb109-37"></a></span>
+<span id="cb109-38"><a href="#cb109-38"></a><span class="co"># add a legend on the right hand side</span></span>
+<span id="cb109-39"><a href="#cb109-39"></a><span class="kw"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span>(usr[<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span><span class="fl">0.015</span> <span class="op">*</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/diff.html">diff</a></span>(usr[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]), usr[<span class="dv">3</span>] <span class="op">+</span><span class="st"> </span><span class="fl">0.8</span> <span class="op">*</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/diff.html">diff</a></span>(usr[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>]),</span>
+<span id="cb109-40"><a href="#cb109-40"></a>       <span class="dt">legend =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Total"</span>, <span class="st">"Positive"</span>, <span class="st">"Negative"</span>, <span class="st">"Ambiguous"</span>),</span>
+<span id="cb109-41"><a href="#cb109-41"></a>       <span class="dt">title =</span> <span class="kw"><a href="https://rdrr.io/r/base/expression.html">expression</a></span>(<span class="kw"><a href="https://rdrr.io/r/grDevices/plotmath.html">bold</a></span>(<span class="st">"Emotion"</span>)),</span>
+<span id="cb109-42"><a href="#cb109-42"></a>       <span class="dt">fill =</span> col[<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"total"</span>, <span class="st">"pos"</span>, <span class="st">"neg"</span>, <span class="st">"ambig"</span>)],</span>
+<span id="cb109-43"><a href="#cb109-43"></a>       <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">xpd =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb109-44"><a href="#cb109-44"></a></span>
+<span id="cb109-45"><a href="#cb109-45"></a><span class="co"># for the total rate, put a dashed line at the mean rate</span></span>
+<span id="cb109-46"><a href="#cb109-46"></a><span class="kw"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span>(<span class="dt">h =</span> <span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(rate<span class="op">$</span>total), <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">col =</span> col[[<span class="st">"total"</span>]])</span>
+<span id="cb109-47"><a href="#cb109-47"></a></span>
+<span id="cb109-48"><a href="#cb109-48"></a><span class="co"># plot each rate type</span></span>
+<span id="cb109-49"><a href="#cb109-49"></a><span class="cf">for</span> (t <span class="cf">in</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"ambig"</span>, <span class="st">"neg"</span>, <span class="st">"pos"</span>, <span class="st">"total"</span>)) {</span>
+<span id="cb109-50"><a href="#cb109-50"></a>    r &lt;-<span class="st"> </span>rate[[t]]</span>
+<span id="cb109-51"><a href="#cb109-51"></a>    s &lt;-<span class="st"> </span>se[[t]]</span>
+<span id="cb109-52"><a href="#cb109-52"></a>    cl &lt;-<span class="st"> </span>col[[t]]</span>
+<span id="cb109-53"><a href="#cb109-53"></a></span>
+<span id="cb109-54"><a href="#cb109-54"></a>    <span class="co"># add lines and points</span></span>
+<span id="cb109-55"><a href="#cb109-55"></a>    <span class="kw"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(i, r, <span class="dt">col =</span> cl)</span>
+<span id="cb109-56"><a href="#cb109-56"></a>    <span class="kw"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(i, r, <span class="dt">col =</span> cl, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb109-57"><a href="#cb109-57"></a></span>
+<span id="cb109-58"><a href="#cb109-58"></a>    <span class="co"># for the total, put standard errors around interesting points</span></span>
+<span id="cb109-59"><a href="#cb109-59"></a>    <span class="cf">if</span> (t <span class="op">==</span><span class="st"> "total"</span>) {</span>
+<span id="cb109-60"><a href="#cb109-60"></a>        <span class="co"># "interesting" defined as rate &gt;2 sd away from mean</span></span>
+<span id="cb109-61"><a href="#cb109-61"></a>        int &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>((r <span class="op">-</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(r)) <span class="op">/</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(r)) <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span></span>
+<span id="cb109-62"><a href="#cb109-62"></a></span>
+<span id="cb109-63"><a href="#cb109-63"></a>        <span class="kw"><a href="https://rdrr.io/r/graphics/segments.html">segments</a></span>(i[int], (r <span class="op">-</span><span class="st"> </span>s)[int], i[int], (r <span class="op">+</span><span class="st"> </span>s)[int], <span class="dt">col =</span> cl)</span>
+<span id="cb109-64"><a href="#cb109-64"></a>        <span class="kw"><a href="https://rdrr.io/r/graphics/segments.html">segments</a></span>((i <span class="op">-</span><span class="st"> </span><span class="fl">.2</span>)[int], (r <span class="op">-</span><span class="st"> </span>s)[int], (i <span class="op">+</span><span class="st"> </span><span class="fl">.2</span>)[int], (r <span class="op">-</span><span class="st"> </span>s)[int], <span class="dt">col =</span> cl)</span>
+<span id="cb109-65"><a href="#cb109-65"></a>        <span class="kw"><a href="https://rdrr.io/r/graphics/segments.html">segments</a></span>((i <span class="op">-</span><span class="st"> </span><span class="fl">.2</span>)[int], (r <span class="op">+</span><span class="st"> </span>s)[int], (i <span class="op">+</span><span class="st"> </span><span class="fl">.2</span>)[int], (r <span class="op">+</span><span class="st"> </span>s)[int], <span class="dt">col =</span> cl)</span>
+<span id="cb109-66"><a href="#cb109-66"></a>    }</span>
+<span id="cb109-67"><a href="#cb109-67"></a>}</span></code></pre></div>
 <div class="figure">
-<img src="corpus-emotion-1.png" alt="Emotion in Oz"><p class="caption">Emotion in Oz</p>
+<img src="corpus-emotion-1.png" alt=""><p class="caption">Emotion in Oz</p>
 </div>
 </div>
 <div id="discussion" class="section level3">

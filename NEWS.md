@@ -1,3 +1,8 @@
+corpus 0.10.2
+==================
+
+Added `rmarkdown` to `SUGGESTS`.
+
 corpus 0.10.1
 ==================
 

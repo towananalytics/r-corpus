@@ -1,10 +1,6 @@
-## Resubmission / submission by new maintainer
-
-This is a resubmission, by a new maintainer (Leslie Huang), by agreement with the previous maintainer (Patrick O. Perry).
-
 ## Release summary
 
-version 0.10.1 fixes code that was breaking due to changes in r-devel (4.0.0), referenced here: https://stat.ethz.ch/pipermail/r-devel/2020-February/079049.html
+version 0.10.2 adds `rmarkdown` to `SUGGESTS` per https://github.com/yihui/knitr/issues/1864
 
 ## Test environments
 

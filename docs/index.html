@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">corpus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.2</span>
       </span>
     </div>
 
@@ -119,16 +119,16 @@
 <h3 class="hasAnchor">
 <a href="#stable-version" class="anchor"></a>Stable version</h3>
 <p><em>Corpus</em> is <a href="https://cran.r-project.org/package=corpus" title="CRAN Page">available on CRAN</a>.To install the latest released version, run the following command in R:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"corpus"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"corpus"</span>)</span></code></pre></div>
 </div>
 <div id="development-version" class="section level3">
 <h3 class="hasAnchor">
 <a href="#development-version" class="anchor"></a>Development version</h3>
 <p>To install the latest development version, run the following:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">tmp &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span>()</a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/system2.html">system2</a></span>(<span class="st">"git"</span>, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"clone"</span>, <span class="st">"--recursive"</span>,</a>
-<a class="sourceLine" id="cb2-3" title="3">                 <span class="kw"><a href="https://rdrr.io/r/base/shQuote.html">shQuote</a></span>(<span class="st">"https://github.com/leslie-huang/r-corpus.git"</span>), <span class="kw"><a href="https://rdrr.io/r/base/shQuote.html">shQuote</a></span>(tmp)))</a>
-<a class="sourceLine" id="cb2-4" title="4">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/install.html">install</a></span>(tmp)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>tmp &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span>()</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw"><a href="https://rdrr.io/r/base/system2.html">system2</a></span>(<span class="st">"git"</span>, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"clone"</span>, <span class="st">"--recursive"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3"></a>                 <span class="kw"><a href="https://rdrr.io/r/base/shQuote.html">shQuote</a></span>(<span class="st">"https://github.com/leslie-huang/r-corpus.git"</span>), <span class="kw"><a href="https://rdrr.io/r/base/shQuote.html">shQuote</a></span>(tmp)))</span>
+<span id="cb2-4"><a href="#cb2-4"></a>devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/install.html">install</a></span>(tmp)</span></code></pre></div>
 <p>Note that <em>corpus</em> uses a git submodule, so you cannot use <code><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">devtools::install_github</a></code>.</p>
 </div>
 </div>
@@ -136,57 +136,57 @@
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>Here’s how to get the most common non-punctuation, non-stop-word terms in <em>The Federalist Papers</em>:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw"><a href="reference/term_stats.html">term_stats</a></span>(federalist, <span class="dt">drop =</span> stopwords_en, <span class="dt">drop_punct =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb3-2" title="2">   term         count support</a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="dv">1</span>  government     <span class="dv">825</span>      <span class="dv">85</span></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="dv">2</span>  state          <span class="dv">787</span>      <span class="dv">85</span></a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="dv">3</span>  people         <span class="dv">612</span>      <span class="dv">85</span></a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="dv">4</span>  one            <span class="dv">544</span>      <span class="dv">85</span></a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="dv">5</span>  new            <span class="dv">324</span>      <span class="dv">85</span></a>
-<a class="sourceLine" id="cb3-8" title="8"><span class="dv">6</span>  york           <span class="dv">151</span>      <span class="dv">85</span></a>
-<a class="sourceLine" id="cb3-9" title="9"><span class="dv">7</span>  publius         <span class="dv">85</span>      <span class="dv">85</span></a>
-<a class="sourceLine" id="cb3-10" title="10"><span class="dv">8</span>  may            <span class="dv">812</span>      <span class="dv">84</span></a>
-<a class="sourceLine" id="cb3-11" title="11"><span class="dv">9</span>  states         <span class="dv">845</span>      <span class="dv">82</span></a>
-<a class="sourceLine" id="cb3-12" title="12"><span class="dv">10</span> power          <span class="dv">606</span>      <span class="dv">82</span></a>
-<a class="sourceLine" id="cb3-13" title="13"><span class="dv">11</span> must           <span class="dv">446</span>      <span class="dv">81</span></a>
-<a class="sourceLine" id="cb3-14" title="14"><span class="dv">12</span> can            <span class="dv">464</span>      <span class="dv">78</span></a>
-<a class="sourceLine" id="cb3-15" title="15"><span class="dv">13</span> every          <span class="dv">350</span>      <span class="dv">77</span></a>
-<a class="sourceLine" id="cb3-16" title="16"><span class="dv">14</span> part           <span class="dv">226</span>      <span class="dv">77</span></a>
-<a class="sourceLine" id="cb3-17" title="17"><span class="dv">15</span> constitution   <span class="dv">462</span>      <span class="dv">76</span></a>
-<a class="sourceLine" id="cb3-18" title="18"><span class="dv">16</span> might          <span class="dv">322</span>      <span class="dv">76</span></a>
-<a class="sourceLine" id="cb3-19" title="19"><span class="dv">17</span> general        <span class="dv">255</span>      <span class="dv">76</span></a>
-<a class="sourceLine" id="cb3-20" title="20"><span class="dv">18</span> time           <span class="dv">249</span>      <span class="dv">76</span></a>
-<a class="sourceLine" id="cb3-21" title="21"><span class="dv">19</span> great          <span class="dv">291</span>      <span class="dv">74</span></a>
-<a class="sourceLine" id="cb3-22" title="22"><span class="dv">20</span> public         <span class="dv">282</span>      <span class="dv">74</span></a>
-<a class="sourceLine" id="cb3-23" title="23">⋮  (<span class="dv">8631</span> rows total)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw"><a href="reference/term_stats.html">term_stats</a></span>(federalist, <span class="dt">drop =</span> stopwords_en, <span class="dt">drop_punct =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a>   term         count support</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="dv">1</span>  government     <span class="dv">825</span>      <span class="dv">85</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="dv">2</span>  state          <span class="dv">787</span>      <span class="dv">85</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="dv">3</span>  people         <span class="dv">612</span>      <span class="dv">85</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="dv">4</span>  one            <span class="dv">544</span>      <span class="dv">85</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="dv">5</span>  new            <span class="dv">324</span>      <span class="dv">85</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="dv">6</span>  york           <span class="dv">151</span>      <span class="dv">85</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="dv">7</span>  publius         <span class="dv">85</span>      <span class="dv">85</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="dv">8</span>  may            <span class="dv">812</span>      <span class="dv">84</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="dv">9</span>  states         <span class="dv">845</span>      <span class="dv">82</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="dv">10</span> power          <span class="dv">606</span>      <span class="dv">82</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="dv">11</span> must           <span class="dv">446</span>      <span class="dv">81</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="dv">12</span> can            <span class="dv">464</span>      <span class="dv">78</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="dv">13</span> every          <span class="dv">350</span>      <span class="dv">77</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="dv">14</span> part           <span class="dv">226</span>      <span class="dv">77</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="dv">15</span> constitution   <span class="dv">462</span>      <span class="dv">76</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="dv">16</span> might          <span class="dv">322</span>      <span class="dv">76</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="dv">17</span> general        <span class="dv">255</span>      <span class="dv">76</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="dv">18</span> time           <span class="dv">249</span>      <span class="dv">76</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a><span class="dv">19</span> great          <span class="dv">291</span>      <span class="dv">74</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a><span class="dv">20</span> public         <span class="dv">282</span>      <span class="dv">74</span></span>
+<span id="cb3-23"><a href="#cb3-23"></a>⋮  (<span class="dv">8631</span> rows total)</span></code></pre></div>
 <p>Here’s how to find all instances of tokens that stem to “power”:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw"><a href="reference/text_locate.html">text_locate</a></span>(federalist, <span class="st">"power"</span>, <span class="dt">stemmer =</span> <span class="st">"en"</span>)</a>
-<a class="sourceLine" id="cb4-2" title="2">   text             before              instance              after             </a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="dv">1</span>  <span class="dv">1</span>    …ay hazard a diminution of the   power   , emolument,\nand consequence …</a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="dv">2</span>  <span class="dv">1</span>    …s. So numerous indeed and so\n powerful  are the causes which serve to…</a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="dv">3</span>  <span class="dv">1</span>    … of a temper fond of despotic   power    and\nhostile to the principle…</a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="dv">4</span>  <span class="dv">2</span>    …der to vest it with requisite   powers  . It is well worthy\nof consid…</a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="dv">5</span>  <span class="dv">2</span>    …head of each the same kind of   powers   which they are advised to\npl…</a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="dv">6</span>  <span class="dv">2</span>    …\nwithout having been awed by   power   , or influenced by any passion…</a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="dv">7</span>  <span class="dv">3</span>    …ment, vested with sufficient\n  powers   <span class="cf">for</span> all general and national …</a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="dv">8</span>  <span class="dv">3</span>    … of nations towards all these   powers  , and to me it\nappears eviden…</a>
-<a class="sourceLine" id="cb4-11" title="11"><span class="dv">9</span>  <span class="dv">3</span>    …he wrong themselves, nor want   power    or\ninclination to prevent or…</a>
-<a class="sourceLine" id="cb4-12" title="12"><span class="dv">10</span> <span class="dv">3</span>    …it will also be more <span class="cf">in</span> their   power    to\naccommodate and settle th…</a>
-<a class="sourceLine" id="cb4-13" title="13"><span class="dv">11</span> <span class="dv">3</span>    …cy of little consideration or   power   .\n\nIn the year <span class="dv">1685</span>, the sta…</a>
-<a class="sourceLine" id="cb4-14" title="14"><span class="dv">12</span> <span class="dv">3</span>    …ain, or Britain, or any other  POWERFUL  nation?\n\nPUBLIUS.\n         </a>
-<a class="sourceLine" id="cb4-15" title="15"><span class="dv">13</span> <span class="dv">4</span>    … our advancement <span class="cf">in</span> union, <span class="cf">in</span>   power    and\nconsequence by land and …</a>
-<a class="sourceLine" id="cb4-16" title="16"><span class="dv">14</span> <span class="dv">4</span>    …t can apply the resources and   power    of the whole to the\ndefense …</a>
-<a class="sourceLine" id="cb4-17" title="17"><span class="dv">15</span> <span class="dv">4</span>    …\ncombining and directing the   powers   and resources of the whole, w…</a>
-<a class="sourceLine" id="cb4-18" title="18"><span class="dv">16</span> <span class="dv">5</span>    …h tend to beget and\nincrease   power    <span class="cf">in</span> one part and to impede its…</a>
-<a class="sourceLine" id="cb4-19" title="19"><span class="dv">17</span> <span class="dv">6</span>    … description are the love of\n  power    or the desire of pre<span class="op">-</span>eminence…</a>
-<a class="sourceLine" id="cb4-20" title="20"><span class="dv">18</span> <span class="dv">6</span>    …nd dominion<span class="op">--</span>the jealousy of\n  power   , or the desire of equality an…</a>
-<a class="sourceLine" id="cb4-21" title="21"><span class="dv">19</span> <span class="dv">6</span>    …rest of this enterprising and  powerful  monarch, he\nprecipitated Eng…</a>
-<a class="sourceLine" id="cb4-22" title="22"><span class="dv">20</span> <span class="dv">6</span>    …rprising a passion as that of   power    or glory? Have there not\nbee…</a>
-<a class="sourceLine" id="cb4-23" title="23">⋮  (<span class="dv">912</span> rows total)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw"><a href="reference/text_locate.html">text_locate</a></span>(federalist, <span class="st">"power"</span>, <span class="dt">stemmer =</span> <span class="st">"en"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>   text             before              instance              after             </span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="dv">1</span>  <span class="dv">1</span>    …ay hazard a diminution of the   power   , emolument,\nand consequence …</span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="dv">2</span>  <span class="dv">1</span>    …s. So numerous indeed and so\n powerful  are the causes which serve to…</span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="dv">3</span>  <span class="dv">1</span>    … of a temper fond of despotic   power    and\nhostile to the principle…</span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="dv">4</span>  <span class="dv">2</span>    …der to vest it with requisite   powers  . It is well worthy\nof consid…</span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="dv">5</span>  <span class="dv">2</span>    …head of each the same kind of   powers   which they are advised to\npl…</span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="dv">6</span>  <span class="dv">2</span>    …\nwithout having been awed by   power   , or influenced by any passion…</span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="dv">7</span>  <span class="dv">3</span>    …ment, vested with sufficient\n  powers   <span class="cf">for</span> all general and national …</span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="dv">8</span>  <span class="dv">3</span>    … of nations towards all these   powers  , and to me it\nappears eviden…</span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="dv">9</span>  <span class="dv">3</span>    …he wrong themselves, nor want   power    or\ninclination to prevent or…</span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="dv">10</span> <span class="dv">3</span>    …it will also be more <span class="cf">in</span> their   power    to\naccommodate and settle th…</span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="dv">11</span> <span class="dv">3</span>    …cy of little consideration or   power   .\n\nIn the year <span class="dv">1685</span>, the sta…</span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="dv">12</span> <span class="dv">3</span>    …ain, or Britain, or any other  POWERFUL  nation?\n\nPUBLIUS.\n         </span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="dv">13</span> <span class="dv">4</span>    … our advancement <span class="cf">in</span> union, <span class="cf">in</span>   power    and\nconsequence by land and …</span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="dv">14</span> <span class="dv">4</span>    …t can apply the resources and   power    of the whole to the\ndefense …</span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="dv">15</span> <span class="dv">4</span>    …\ncombining and directing the   powers   and resources of the whole, w…</span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="dv">16</span> <span class="dv">5</span>    …h tend to beget and\nincrease   power    <span class="cf">in</span> one part and to impede its…</span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="dv">17</span> <span class="dv">6</span>    … description are the love of\n  power    or the desire of pre<span class="op">-</span>eminence…</span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="dv">18</span> <span class="dv">6</span>    …nd dominion<span class="op">--</span>the jealousy of\n  power   , or the desire of equality an…</span>
+<span id="cb4-21"><a href="#cb4-21"></a><span class="dv">19</span> <span class="dv">6</span>    …rest of this enterprising and  powerful  monarch, he\nprecipitated Eng…</span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="dv">20</span> <span class="dv">6</span>    …rprising a passion as that of   power    or glory? Have there not\nbee…</span>
+<span id="cb4-23"><a href="#cb4-23"></a>⋮  (<span class="dv">912</span> rows total)</span></code></pre></div>
 <p>Here’s how to get a term frequency matrix of all 1-, 2-, 3-, 4-, and 5-grams.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(x &lt;-<span class="st"> </span><span class="kw"><a href="reference/term_matrix.html">term_matrix</a></span>(federalist, <span class="dt">ngrams =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb5-2" title="2">   user  system elapsed</a>
-<a class="sourceLine" id="cb5-3" title="3">  <span class="fl">2.781</span>   <span class="fl">0.123</span>   <span class="fl">2.906</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(x &lt;-<span class="st"> </span><span class="kw"><a href="reference/term_matrix.html">term_matrix</a></span>(federalist, <span class="dt">ngrams =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>))</span>
+<span id="cb5-2"><a href="#cb5-2"></a>   user  system elapsed</span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fl">2.781</span>   <span class="fl">0.123</span>   <span class="fl">2.906</span></span></code></pre></div>
 <p>This computation uses only a single CPU, yet it still completes in under three seconds.</p>
 <p>For a more complete introduction to the package, see the <a href="http://corpustext.com/articles/corpus.html" title="Introduction to corpus">getting started guide</a> and the other articles at <a href="http://corpustext.com">corpustext.com</a>.</p>
 </div>
@@ -194,13 +194,13 @@
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
 <p>Cite <em>corpus</em> with the following BibTeX entry:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="op">@</span>Manual{,</a>
-<a class="sourceLine" id="cb6-2" title="2">    title =<span class="st"> </span>{corpus<span class="op">:</span><span class="st"> </span>Text Corpus Analysis},</a>
-<a class="sourceLine" id="cb6-3" title="3">    author =<span class="st"> </span>{Patrick O. Perry},</a>
-<a class="sourceLine" id="cb6-4" title="4">    year =<span class="st"> </span>{<span class="dv">2017</span>},</a>
-<a class="sourceLine" id="cb6-5" title="5">    note =<span class="st"> </span>{R package version <span class="dv">0</span>.<span class="fl">10.0</span>},</a>
-<a class="sourceLine" id="cb6-6" title="6">    url =<span class="st"> </span>{http<span class="op">:</span><span class="er">//</span>corpustext.com},</a>
-<a class="sourceLine" id="cb6-7" title="7">}</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="op">@</span>Manual{,</span>
+<span id="cb6-2"><a href="#cb6-2"></a>    title =<span class="st"> </span>{corpus<span class="op">:</span><span class="st"> </span>Text Corpus Analysis},</span>
+<span id="cb6-3"><a href="#cb6-3"></a>    author =<span class="st"> </span>{Patrick O. Perry},</span>
+<span id="cb6-4"><a href="#cb6-4"></a>    year =<span class="st"> </span>{<span class="dv">2017</span>},</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    note =<span class="st"> </span>{R package version <span class="dv">0</span>.<span class="fl">10.0</span>},</span>
+<span id="cb6-6"><a href="#cb6-6"></a>    url =<span class="st"> </span>{http<span class="op">:</span><span class="er">//</span>corpustext.com},</span>
+<span id="cb6-7"><a href="#cb6-7"></a>}</span></code></pre></div>
 </div>
 <div id="contributing" class="section level2">
 <h2 class="hasAnchor">

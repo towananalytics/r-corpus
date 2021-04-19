@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">corpus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.2</span>
       </span>
     </div>
 
@@ -121,8 +121,8 @@
 <h2 class="hasAnchor">
 <a href="#snowball-stemmer" class="anchor"></a>Snowball stemmer</h2>
 <p><em>Corpus</em> comes with built-in support for the algorithmic stemmers provided by the <a href="https://snowballstem.org/" title="Snowball Stemming Library">Snowball Stemming Library</a>, which supports the following languages: arabic (ar), danish (da), german (de), english (en), spanish (es), finnish (fi), french (fr), hungarian (hu), italian (it), dutch (nl), norwegian (no), portuguese (pt), romanian (ro), russian (ru), swedish (sv), tamil (ta), and turkish (tr). You can select one of these stemmers using either the full name of the language of the two-letter country code:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">text &lt;-<span class="st"> "love loving lovingly loved lover lovely love"</span></a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="../reference/text_tokens.html">text_tokens</a></span>(text, <span class="dt">stemmer =</span> <span class="st">"en"</span>) <span class="co"># english stemmer</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>text &lt;-<span class="st"> "love loving lovingly loved lover lovely love"</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="../reference/text_tokens.html">text_tokens</a></span>(text, <span class="dt">stemmer =</span> <span class="st">"en"</span>) <span class="co"># english stemmer</span></span></code></pre></div>
 <pre><code>[[1]]
 [1] "love"  "love"  "love"  "love"  "lover" "love"  "love" </code></pre>
 <p>These stemmers are purely algorithmic; they mostly just strip off common suffixes.</p>
@@ -132,20 +132,20 @@
 <a href="#hunspell-stemmer" class="anchor"></a>Hunspell stemmer</h2>
 <p>If you want more precise stemming behavior, you can provide a custom stemming function. The stemming function should, when given a term as an input, return the stem of the term as the output.</p>
 <p>Here’s an example that uses the <code>hunspell</code> dictionary to do the stemming.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">stem_hunspell &lt;-<span class="st"> </span><span class="cf">function</span>(term) {</a>
-<a class="sourceLine" id="cb3-2" title="2">    <span class="co"># look up the term in the dictionary</span></a>
-<a class="sourceLine" id="cb3-3" title="3">    stems &lt;-<span class="st"> </span>hunspell<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/hunspell/reference/hunspell.html">hunspell_stem</a></span>(term)[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb3-4" title="4"></a>
-<a class="sourceLine" id="cb3-5" title="5">    <span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(stems) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) { <span class="co"># if there are no stems, use the original term</span></a>
-<a class="sourceLine" id="cb3-6" title="6">        stem &lt;-<span class="st"> </span>term</a>
-<a class="sourceLine" id="cb3-7" title="7">    } <span class="cf">else</span> { <span class="co"># if there are multiple stems, use the last one</span></a>
-<a class="sourceLine" id="cb3-8" title="8">        stem &lt;-<span class="st"> </span>stems[[<span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(stems)]]</a>
-<a class="sourceLine" id="cb3-9" title="9">    }</a>
-<a class="sourceLine" id="cb3-10" title="10"></a>
-<a class="sourceLine" id="cb3-11" title="11">    stem</a>
-<a class="sourceLine" id="cb3-12" title="12">}</a>
-<a class="sourceLine" id="cb3-13" title="13"></a>
-<a class="sourceLine" id="cb3-14" title="14"><span class="kw"><a href="../reference/text_tokens.html">text_tokens</a></span>(text, <span class="dt">stemmer =</span> stem_hunspell)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>stem_hunspell &lt;-<span class="st"> </span><span class="cf">function</span>(term) {</span>
+<span id="cb3-2"><a href="#cb3-2"></a>    <span class="co"># look up the term in the dictionary</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>    stems &lt;-<span class="st"> </span>hunspell<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/hunspell/reference/hunspell.html">hunspell_stem</a></span>(term)[[<span class="dv">1</span>]]</span>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a>    <span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(stems) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) { <span class="co"># if there are no stems, use the original term</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>        stem &lt;-<span class="st"> </span>term</span>
+<span id="cb3-7"><a href="#cb3-7"></a>    } <span class="cf">else</span> { <span class="co"># if there are multiple stems, use the last one</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>        stem &lt;-<span class="st"> </span>stems[[<span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(stems)]]</span>
+<span id="cb3-9"><a href="#cb3-9"></a>    }</span>
+<span id="cb3-10"><a href="#cb3-10"></a></span>
+<span id="cb3-11"><a href="#cb3-11"></a>    stem</span>
+<span id="cb3-12"><a href="#cb3-12"></a>}</span>
+<span id="cb3-13"><a href="#cb3-13"></a></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="kw"><a href="../reference/text_tokens.html">text_tokens</a></span>(text, <span class="dt">stemmer =</span> stem_hunspell)</span></code></pre></div>
 <pre><code>[[1]]
 [1] "love"     "love"     "lovingly" "love"     "love"     "love"     "love"    </code></pre>
 </div>
@@ -153,17 +153,17 @@
 <h2 class="hasAnchor">
 <a href="#dictionary-stemmer" class="anchor"></a>Dictionary stemmer</h2>
 <p>One common way to build a stemmer is from a list of (term, stem) pairs. Many such lists are available at [lexiconista.com][lexiconista]. Here’s an example stemmer for English:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># download the list</span></a>
-<a class="sourceLine" id="cb5-2" title="2">url &lt;-<span class="st"> "http://www.lexiconista.com/Datasets/lemmatization-en.zip"</span></a>
-<a class="sourceLine" id="cb5-3" title="3">tmp &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span>()</a>
-<a class="sourceLine" id="cb5-4" title="4"><span class="kw"><a href="https://rdrr.io/r/utils/download.file.html">download.file</a></span>(url, tmp)</a>
-<a class="sourceLine" id="cb5-5" title="5"></a>
-<a class="sourceLine" id="cb5-6" title="6"><span class="co"># extract the contents</span></a>
-<a class="sourceLine" id="cb5-7" title="7">con &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/connections.html">unz</a></span>(tmp, <span class="st">"lemmatization-en.txt"</span>, <span class="dt">encoding =</span> <span class="st">"UTF-8"</span>)</a>
-<a class="sourceLine" id="cb5-8" title="8">tab &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.delim</a></span>(con, <span class="dt">header=</span><span class="ot">FALSE</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb5-9" title="9"><span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(tab) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"stem"</span>, <span class="st">"term"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># download the list</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>url &lt;-<span class="st"> "http://www.lexiconista.com/Datasets/lemmatization-en.zip"</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>tmp &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span>()</span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="kw"><a href="https://rdrr.io/r/utils/download.file.html">download.file</a></span>(url, tmp)</span>
+<span id="cb5-5"><a href="#cb5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co"># extract the contents</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>con &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/connections.html">unz</a></span>(tmp, <span class="st">"lemmatization-en.txt"</span>, <span class="dt">encoding =</span> <span class="st">"UTF-8"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8"></a>tab &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.delim</a></span>(con, <span class="dt">header=</span><span class="ot">FALSE</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(tab) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"stem"</span>, <span class="st">"term"</span>)</span></code></pre></div>
 <p>The first column of this table contains the stem; the second column contains the raw term:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(tab)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(tab)</span></code></pre></div>
 <pre><code>        stem       term
 1          1      first
 2         10      tenth
@@ -173,22 +173,22 @@
 6 1000000000  billionth</code></pre>
 <p>We can see that, for example, <code>"first"</code> stems to <code>"1"</code>.</p>
 <p>Here a custom stemming function that uses the list:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">stem_list &lt;-<span class="st"> </span><span class="cf">function</span>(term) {</a>
-<a class="sourceLine" id="cb8-2" title="2">    i &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/match.html">match</a></span>(term, tab<span class="op">$</span>term)</a>
-<a class="sourceLine" id="cb8-3" title="3">    <span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(i)) {</a>
-<a class="sourceLine" id="cb8-4" title="4">        stem &lt;-<span class="st"> </span>term</a>
-<a class="sourceLine" id="cb8-5" title="5">    } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb8-6" title="6">        stem &lt;-<span class="st"> </span>tab<span class="op">$</span>stem[[i]]</a>
-<a class="sourceLine" id="cb8-7" title="7">    }</a>
-<a class="sourceLine" id="cb8-8" title="8">    stem</a>
-<a class="sourceLine" id="cb8-9" title="9">}</a>
-<a class="sourceLine" id="cb8-10" title="10"></a>
-<a class="sourceLine" id="cb8-11" title="11"><span class="kw"><a href="../reference/text_tokens.html">text_tokens</a></span>(text, <span class="dt">stemmer =</span> stem_list)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>stem_list &lt;-<span class="st"> </span><span class="cf">function</span>(term) {</span>
+<span id="cb8-2"><a href="#cb8-2"></a>    i &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/match.html">match</a></span>(term, tab<span class="op">$</span>term)</span>
+<span id="cb8-3"><a href="#cb8-3"></a>    <span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(i)) {</span>
+<span id="cb8-4"><a href="#cb8-4"></a>        stem &lt;-<span class="st"> </span>term</span>
+<span id="cb8-5"><a href="#cb8-5"></a>    } <span class="cf">else</span> {</span>
+<span id="cb8-6"><a href="#cb8-6"></a>        stem &lt;-<span class="st"> </span>tab<span class="op">$</span>stem[[i]]</span>
+<span id="cb8-7"><a href="#cb8-7"></a>    }</span>
+<span id="cb8-8"><a href="#cb8-8"></a>    stem</span>
+<span id="cb8-9"><a href="#cb8-9"></a>}</span>
+<span id="cb8-10"><a href="#cb8-10"></a></span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="kw"><a href="../reference/text_tokens.html">text_tokens</a></span>(text, <span class="dt">stemmer =</span> stem_list)</span></code></pre></div>
 <pre><code>[[1]]
 [1] "love"     "love"     "lovingly" "love"     "lover"    "lovely"   "love"    </code></pre>
 <p>This pattern is so common that <em>corpus</em> provides a convenience function that will build a stemmer from the input term and stem lists:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">stem_list2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/new_stemmer.html">new_stemmer</a></span>(tab<span class="op">$</span>term, tab<span class="op">$</span>stem)</a>
-<a class="sourceLine" id="cb10-2" title="2"><span class="kw"><a href="../reference/text_tokens.html">text_tokens</a></span>(text, <span class="dt">stemmer =</span> stem_list2)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>stem_list2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/new_stemmer.html">new_stemmer</a></span>(tab<span class="op">$</span>term, tab<span class="op">$</span>stem)</span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="kw"><a href="../reference/text_tokens.html">text_tokens</a></span>(text, <span class="dt">stemmer =</span> stem_list2)</span></code></pre></div>
 <pre><code>[[1]]
 [1] "love"     "love"     "lovingly" "love"     "lover"    "lovely"   "love"    </code></pre>
 </div>
@@ -196,14 +196,14 @@
 <h2 class="hasAnchor">
 <a href="#application-emotion-word-usage" class="anchor"></a>Application: Emotion word usage</h2>
 <p>Here’s how to use a custom stemmer to get counts of emotion word usage. We will use the text of <em>The Wizard of Oz</em> (Project Gutenberg Work #55) to demonstrate.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/gutenberg_corpus.html">gutenberg_corpus</a></span>(<span class="dv">55</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb12-2" title="2"><span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(data)<span class="op">$</span>stemmer &lt;-</a>
-<a class="sourceLine" id="cb12-3" title="3"><span class="st">    </span><span class="kw"><a href="https://rdrr.io/r/base/with.html">with</a></span>(affect_wordnet,</a>
-<a class="sourceLine" id="cb12-4" title="4">        <span class="kw"><a href="../reference/new_stemmer.html">new_stemmer</a></span>(term, <span class="kw"><a href="https://rdrr.io/r/base/interaction.html">interaction</a></span>(category, emotion),</a>
-<a class="sourceLine" id="cb12-5" title="5">                    <span class="dt">default =</span> <span class="ot">NA</span>, <span class="dt">duplicates =</span> <span class="st">"omit"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/gutenberg_corpus.html">gutenberg_corpus</a></span>(<span class="dv">55</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(data)<span class="op">$</span>stemmer &lt;-</span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="st">    </span><span class="kw"><a href="https://rdrr.io/r/base/with.html">with</a></span>(affect_wordnet,</span>
+<span id="cb12-4"><a href="#cb12-4"></a>        <span class="kw"><a href="../reference/new_stemmer.html">new_stemmer</a></span>(term, <span class="kw"><a href="https://rdrr.io/r/base/interaction.html">interaction</a></span>(category, emotion),</span>
+<span id="cb12-5"><a href="#cb12-5"></a>                    <span class="dt">default =</span> <span class="ot">NA</span>, <span class="dt">duplicates =</span> <span class="st">"omit"</span>))</span></code></pre></div>
 <p>This stemmer replaces terms by the emotional affect, as listed in the <code>affect_wordnet</code> lexicon. Setting <code>default = NA</code> specifies that terms that are not in the lexicon get dropped. We also specify <code>duplicates = "omit"</code> so that words listed in multiple categories get replaced with the default (i.e., they get dropped).</p>
 <p>Here are the (stemmed) term statistics:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(data), <span class="dv">-1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(data), <span class="dv">-1</span>)</span></code></pre></div>
 <pre><code>   term                  count support
 1  Sadness.Negative        207       1
 2  Enthusiasm.Positive     146       1
@@ -228,7 +228,7 @@
 21 Fear.Positive             1       1
 22 Fearlessness.Positive     1       1</code></pre>
 <p>We can also get a sample of the instances of the stemmed terms:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw"><a href="../reference/text_locate.html">text_sample</a></span>(data, <span class="st">"Joy.Positive"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw"><a href="../reference/text_locate.html">text_sample</a></span>(data, <span class="st">"Joy.Positive"</span>)</span></code></pre></div>
 <pre><code>   text                before                  instance                   after                
 1  1    … Scarecrow and the Tin Woodman were     glad      to be of\nuse to her.  As for the L…
 2  1    …rs and\nfruit trees and sunshine to     cheer     them, and had they not felt so sorr…
@@ -256,25 +256,25 @@
 <h2 class="hasAnchor">
 <a href="#application-spell-corrected-tokens" class="anchor"></a>Application: Spell-corrected tokens</h2>
 <p>Suppose we want to analyze texts with spelling errors, using our best guess of the intended word rather than the literal spelling in the text. We can do this by using a stemmer that tries to correct spelling errors in the tokens:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">stem_spellcorrect &lt;-<span class="st"> </span><span class="cf">function</span>(term) {</a>
-<a class="sourceLine" id="cb17-2" title="2">    <span class="co"># if the term is spelled correctly, leave it as-is</span></a>
-<a class="sourceLine" id="cb17-3" title="3">    <span class="cf">if</span> (hunspell<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/hunspell/reference/hunspell.html">hunspell_check</a></span>(term)) {</a>
-<a class="sourceLine" id="cb17-4" title="4">        <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span>(term)</a>
-<a class="sourceLine" id="cb17-5" title="5">    }</a>
-<a class="sourceLine" id="cb17-6" title="6"></a>
-<a class="sourceLine" id="cb17-7" title="7">    suggestions &lt;-<span class="st"> </span>hunspell<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/hunspell/reference/hunspell.html">hunspell_suggest</a></span>(term)[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb17-8" title="8"></a>
-<a class="sourceLine" id="cb17-9" title="9">    <span class="co"># if hunspell found a suggestion, use the first one</span></a>
-<a class="sourceLine" id="cb17-10" title="10">    <span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(suggestions) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</a>
-<a class="sourceLine" id="cb17-11" title="11">        suggestions[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb17-12" title="12">    } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb17-13" title="13">        <span class="co"># otherwise, use the original term</span></a>
-<a class="sourceLine" id="cb17-14" title="14">        term</a>
-<a class="sourceLine" id="cb17-15" title="15">    }</a>
-<a class="sourceLine" id="cb17-16" title="16">}</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>stem_spellcorrect &lt;-<span class="st"> </span><span class="cf">function</span>(term) {</span>
+<span id="cb17-2"><a href="#cb17-2"></a>    <span class="co"># if the term is spelled correctly, leave it as-is</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>    <span class="cf">if</span> (hunspell<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/hunspell/reference/hunspell.html">hunspell_check</a></span>(term)) {</span>
+<span id="cb17-4"><a href="#cb17-4"></a>        <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span>(term)</span>
+<span id="cb17-5"><a href="#cb17-5"></a>    }</span>
+<span id="cb17-6"><a href="#cb17-6"></a></span>
+<span id="cb17-7"><a href="#cb17-7"></a>    suggestions &lt;-<span class="st"> </span>hunspell<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/hunspell/reference/hunspell.html">hunspell_suggest</a></span>(term)[[<span class="dv">1</span>]]</span>
+<span id="cb17-8"><a href="#cb17-8"></a></span>
+<span id="cb17-9"><a href="#cb17-9"></a>    <span class="co"># if hunspell found a suggestion, use the first one</span></span>
+<span id="cb17-10"><a href="#cb17-10"></a>    <span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(suggestions) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</span>
+<span id="cb17-11"><a href="#cb17-11"></a>        suggestions[[<span class="dv">1</span>]]</span>
+<span id="cb17-12"><a href="#cb17-12"></a>    } <span class="cf">else</span> {</span>
+<span id="cb17-13"><a href="#cb17-13"></a>        <span class="co"># otherwise, use the original term</span></span>
+<span id="cb17-14"><a href="#cb17-14"></a>        term</span>
+<span id="cb17-15"><a href="#cb17-15"></a>    }</span>
+<span id="cb17-16"><a href="#cb17-16"></a>}</span></code></pre></div>
 <p>Here’s an example use of the stemmer:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">text &lt;-<span class="st"> "spell checkers are not neccessairy for langauge ninja's"</span></a>
-<a class="sourceLine" id="cb18-2" title="2"><span class="kw"><a href="../reference/text_tokens.html">text_tokens</a></span>(text, <span class="dt">stemmer =</span> stem_spellcorrect)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>text &lt;-<span class="st"> "spell checkers are not neccessairy for langauge ninja's"</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="kw"><a href="../reference/text_tokens.html">text_tokens</a></span>(text, <span class="dt">stemmer =</span> stem_spellcorrect)</span></code></pre></div>
 <pre><code>[[1]]
 [1] "spell"     "checkers"  "are"       "not"       "necessary" "for"       "language" 
 [8] "ninjas"   </code></pre>
@@ -284,34 +284,34 @@
 <a href="#efficiency-considerations" class="anchor"></a>Efficiency considerations</h2>
 <p>When you stem a text, the result gets cached, so you never have to stem the same type twice. If the input is a <code>corpus_text</code> object, these cached values are shared across multiple tokenizations.</p>
 <p>Here’s a stemmer that prepends “bunny” to every word, keeping track of how many times it gets called:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1">nbunny &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb20-2" title="2">stem_bunny &lt;-<span class="st"> </span><span class="cf">function</span>(term) {</a>
-<a class="sourceLine" id="cb20-3" title="3">    nbunny &lt;&lt;-<span class="st"> </span>nbunny <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb20-4" title="4">    <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"bunny"</span>, term)</a>
-<a class="sourceLine" id="cb20-5" title="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>nbunny &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>stem_bunny &lt;-<span class="st"> </span><span class="cf">function</span>(term) {</span>
+<span id="cb20-3"><a href="#cb20-3"></a>    nbunny &lt;&lt;-<span class="st"> </span>nbunny <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb20-4"><a href="#cb20-4"></a>    <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"bunny"</span>, term)</span>
+<span id="cb20-5"><a href="#cb20-5"></a>}</span></code></pre></div>
 <p>We will set this as the stemmer for a corpus (a data frame with a “text” column of type <code>corpus_text</code>):</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1">corpus &lt;-<span class="st"> </span><span class="kw"><a href="../reference/corpus_frame.html">as_corpus_frame</a></span>(federalist)</a>
-<a class="sourceLine" id="cb21-2" title="2"><span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(corpus)<span class="op">$</span>stemmer &lt;-<span class="st"> </span>stem_bunny</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>corpus &lt;-<span class="st"> </span><span class="kw"><a href="../reference/corpus_frame.html">as_corpus_frame</a></span>(federalist)</span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(corpus)<span class="op">$</span>stemmer &lt;-<span class="st"> </span>stem_bunny</span></code></pre></div>
 <p>Here’s how long it takes to tokenize the text once and compute the term statistics:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(stats &lt;-<span class="st"> </span><span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(corpus))</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(stats &lt;-<span class="st"> </span><span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(corpus))</span></code></pre></div>
 <pre><code>   user  system elapsed 
   0.103   0.003   0.107 </code></pre>
 <p>Here’s how many times the stemmer got called:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(nbunny)</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(nbunny)</span></code></pre></div>
 <pre><code>[1] 8766</code></pre>
 <p>We will now set the bunny count to zero and run the same computation:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1">nbunny &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb26-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(stats2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(corpus))</a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>nbunny &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="kw"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(stats2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(corpus))</span></code></pre></div>
 <pre><code>   user  system elapsed 
   0.042   0.000   0.043 </code></pre>
 <p>It took us half the time. How many additional calls to the stemmer were there?</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(nbunny)</a></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(nbunny)</span></code></pre></div>
 <pre><code>[1] 0</code></pre>
 <p>No additional calls. We used the cached stems from the first call to <code>term_stats</code>. We can verify that the results were the same both times.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(stats, stats2)</a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(stats, stats2)</span></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
 <p>Just for fun, here are the results:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1">stats</a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>stats</span></code></pre></div>
 <pre><code>   term        count support
 1  bunny_the   17743      85
 2  bunny_,     13251      85

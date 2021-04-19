@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">corpus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.2</span>
       </span>
     </div>
 
@@ -122,41 +122,41 @@
 <a href="#overview" class="anchor"></a>Overview</h2>
 <p>This vignette shows how to work with Chinese language materials using the corpus package. It’s based on Haiyan Wang’s <a href="https://github.com/ropensci/textworkshop17/tree/master/demos/chineseDemo">rOpenSci demo</a> and assumes you have <code>httr</code>, <code>stringi</code>, and <code>wordcloud</code> installed.</p>
 <p>We’ll start by loading the package and setting a seed to ensure reproducible results</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"corpus"</span>)</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">100</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"corpus"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">100</span>)</span></code></pre></div>
 </div>
 <div id="documents-and-stopwords" class="section level2">
 <h2 class="hasAnchor">
 <a href="#documents-and-stopwords" class="anchor"></a>Documents and stopwords</h2>
 <p>First download a stop word list suitable for Chinese, the Baidu stop words</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">cstops &lt;-<span class="st"> "https://raw.githubusercontent.com/ropensci/textworkshop17/master/demos/chineseDemo/ChineseStopWords.txt"</span></a>
-<a class="sourceLine" id="cb2-2" title="2">csw &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(cstops, <span class="dt">encoding =</span> <span class="st">"UTF-8"</span>), <span class="dt">collapse =</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>) <span class="co"># download</span></a>
-<a class="sourceLine" id="cb2-3" title="3">csw &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="st">"</span><span class="ch">\\</span><span class="st">s"</span>, <span class="st">""</span>, csw)           <span class="co"># remove whitespace</span></a>
-<a class="sourceLine" id="cb2-4" title="4">stop_words &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span>(csw, <span class="st">","</span>)[[<span class="dv">1</span>]] <span class="co"># extract the comma-separated words</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>cstops &lt;-<span class="st"> "https://raw.githubusercontent.com/ropensci/textworkshop17/master/demos/chineseDemo/ChineseStopWords.txt"</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>csw &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(cstops, <span class="dt">encoding =</span> <span class="st">"UTF-8"</span>), <span class="dt">collapse =</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>) <span class="co"># download</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>csw &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="st">"</span><span class="ch">\\</span><span class="st">s"</span>, <span class="st">""</span>, csw)           <span class="co"># remove whitespace</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>stop_words &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span>(csw, <span class="st">","</span>)[[<span class="dv">1</span>]] <span class="co"># extract the comma-separated words</span></span></code></pre></div>
 <p>Next, download some demonstration documents. These are in plain text format, encoded in UTF-8.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">gov_reports &lt;-<span class="st"> "https://api.github.com/repos/ropensci/textworkshop17/contents/demos/chineseDemo/govReports"</span></a>
-<a class="sourceLine" id="cb3-2" title="2">raw &lt;-<span class="st"> </span>httr<span class="op">::</span><span class="kw"><a href="https://httr.r-lib.org/reference/GET.html">GET</a></span>(gov_reports)</a>
-<a class="sourceLine" id="cb3-3" title="3">paths &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(httr<span class="op">::</span><span class="kw"><a href="https://httr.r-lib.org/reference/content.html">content</a></span>(raw), <span class="cf">function</span>(x) x<span class="op">$</span>path)</a>
-<a class="sourceLine" id="cb3-4" title="4">names &lt;-<span class="st"> </span>tools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/tools/fileutils.html">file_path_sans_ext</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/basename.html">basename</a></span>(paths))</a>
-<a class="sourceLine" id="cb3-5" title="5">urls &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(httr<span class="op">::</span><span class="kw"><a href="https://httr.r-lib.org/reference/content.html">content</a></span>(raw), <span class="cf">function</span>(x) x<span class="op">$</span>download_url)</a>
-<a class="sourceLine" id="cb3-6" title="6">text &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(urls, <span class="cf">function</span>(url) <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(url, <span class="dt">warn =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb3-7" title="7">                                                   <span class="dt">encoding =</span> <span class="st">"UTF-8"</span>),</a>
-<a class="sourceLine" id="cb3-8" title="8">                                         <span class="dt">collapse =</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>))</a>
-<a class="sourceLine" id="cb3-9" title="9"><span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(text) &lt;-<span class="st"> </span>names</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>gov_reports &lt;-<span class="st"> "https://api.github.com/repos/ropensci/textworkshop17/contents/demos/chineseDemo/govReports"</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>raw &lt;-<span class="st"> </span>httr<span class="op">::</span><span class="kw"><a href="https://httr.r-lib.org/reference/GET.html">GET</a></span>(gov_reports)</span>
+<span id="cb3-3"><a href="#cb3-3"></a>paths &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(httr<span class="op">::</span><span class="kw"><a href="https://httr.r-lib.org/reference/content.html">content</a></span>(raw), <span class="cf">function</span>(x) x<span class="op">$</span>path)</span>
+<span id="cb3-4"><a href="#cb3-4"></a>names &lt;-<span class="st"> </span>tools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/tools/fileutils.html">file_path_sans_ext</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/basename.html">basename</a></span>(paths))</span>
+<span id="cb3-5"><a href="#cb3-5"></a>urls &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(httr<span class="op">::</span><span class="kw"><a href="https://httr.r-lib.org/reference/content.html">content</a></span>(raw), <span class="cf">function</span>(x) x<span class="op">$</span>download_url)</span>
+<span id="cb3-6"><a href="#cb3-6"></a>text &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(urls, <span class="cf">function</span>(url) <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(url, <span class="dt">warn =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb3-7"><a href="#cb3-7"></a>                                                   <span class="dt">encoding =</span> <span class="st">"UTF-8"</span>),</span>
+<span id="cb3-8"><a href="#cb3-8"></a>                                         <span class="dt">collapse =</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>))</span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(text) &lt;-<span class="st"> </span>names</span></code></pre></div>
 </div>
 <div id="tokenization" class="section level2">
 <h2 class="hasAnchor">
 <a href="#tokenization" class="anchor"></a>Tokenization</h2>
 <p>Corpus does not know how to tokenize languages with no spaces between words. Fortunately, the ICU library (used internally by the <code>stringi</code> package) does, by using a dictionary of words along with information about their relative usage rates.</p>
 <p>We use <code>stringi</code>’s tokenizer, collect a dictionary of the word types, and then manually insert zero-width spaces between tokens.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">toks &lt;-<span class="st"> </span>stringi<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/stringi/man/stri_split_boundaries.html">stri_split_boundaries</a></span>(text, <span class="dt">type =</span> <span class="st">"word"</span>)</a>
-<a class="sourceLine" id="cb4-2" title="2">dict &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(toks, <span class="dt">recursive =</span> <span class="ot">TRUE</span>)) <span class="co"># unique words</span></a>
-<a class="sourceLine" id="cb4-3" title="3">text2 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(toks, paste, <span class="dt">collapse =</span> <span class="st">"\u200b"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>toks &lt;-<span class="st"> </span>stringi<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/stringi/man/stri_split_boundaries.html">stri_split_boundaries</a></span>(text, <span class="dt">type =</span> <span class="st">"word"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>dict &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(toks, <span class="dt">recursive =</span> <span class="ot">TRUE</span>)) <span class="co"># unique words</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>text2 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(toks, paste, <span class="dt">collapse =</span> <span class="st">"\u200b"</span>)</span></code></pre></div>
 <p>and put the input text in a corpus data frame for convenient analysis</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/corpus_frame.html">corpus_frame</a></span>(<span class="dt">name =</span> names, <span class="dt">text =</span> text2)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/corpus_frame.html">corpus_frame</a></span>(<span class="dt">name =</span> names, <span class="dt">text =</span> text2)</span></code></pre></div>
 <p>We then specify a token filter to determine what is counted by other corpus functions. Here we set <code>combine = dict</code> so that multi-word tokens get treated as single entities</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">f &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(<span class="dt">drop_punct =</span> <span class="ot">TRUE</span>, <span class="dt">drop =</span> stop_words, <span class="dt">combine =</span> dict)</a>
-<a class="sourceLine" id="cb6-2" title="2">(<span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(data) &lt;-<span class="st"> </span>f) <span class="co"># set the text column's filter</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>f &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(<span class="dt">drop_punct =</span> <span class="ot">TRUE</span>, <span class="dt">drop =</span> stop_words, <span class="dt">combine =</span> dict)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>(<span class="kw"><a href="../reference/text_filter.html">text_filter</a></span>(data) &lt;-<span class="st"> </span>f) <span class="co"># set the text column's filter</span></span></code></pre></div>
 <pre><code>Text filter with the following options:
 
     map_case: TRUE
@@ -180,7 +180,7 @@
 <h2 class="hasAnchor">
 <a href="#document-statistics" class="anchor"></a>Document statistics</h2>
 <p>We can now compute type, token, and sentence counts</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="../reference/text_stats.html">text_stats</a></span>(data)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw"><a href="../reference/text_stats.html">text_stats</a></span>(data)</span></code></pre></div>
 <pre><code>   tokens types sentences
 1    8694  2023       453
 2   21079  2780       981
@@ -204,7 +204,7 @@
 20  11830  2429       653
 ⋮  (49 rows total)</code></pre>
 <p>and examine term frequencies</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">(stats &lt;-<span class="st"> </span><span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(data))</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>(stats &lt;-<span class="st"> </span><span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(data))</span></code></pre></div>
 <pre><code>   term count support
 1  发展  5627      49
 2  经济  5036      49
@@ -233,25 +233,25 @@
 <h2 class="hasAnchor">
 <a href="#visualization" class="anchor"></a>Visualization</h2>
 <p>We can visualize word frequencies with a wordcloud. You may want to use a font suitable for Chinese (‘STSong’ is a good choice for Mac users). We switch to this font, create the wordcloud, then switch back.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">font_family &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="st">"family"</span>) <span class="co"># the previous font family</span></a>
-<a class="sourceLine" id="cb12-2" title="2"><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">family =</span> <span class="st">"STSong"</span>) <span class="co"># change to a nice Chinese font</span></a>
-<a class="sourceLine" id="cb12-3" title="3"><span class="kw"><a href="https://rdrr.io/r/base/with.html">with</a></span>(stats, {</a>
-<a class="sourceLine" id="cb12-4" title="4">    wordcloud<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/wordcloud/man/wordcloud.html">wordcloud</a></span>(term, count, <span class="dt">min.freq =</span> <span class="dv">500</span>,</a>
-<a class="sourceLine" id="cb12-5" title="5">                         <span class="dt">random.order =</span> <span class="ot">FALSE</span>, <span class="dt">rot.per =</span> <span class="fl">0.25</span>,</a>
-<a class="sourceLine" id="cb12-6" title="6">                         <span class="dt">colors =</span> RColorBrewer<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html">brewer.pal</a></span>(<span class="dv">8</span>, <span class="st">"Dark2"</span>))</a>
-<a class="sourceLine" id="cb12-7" title="7">})</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>font_family &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="st">"family"</span>) <span class="co"># the previous font family</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">family =</span> <span class="st">"STSong"</span>) <span class="co"># change to a nice Chinese font</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="kw"><a href="https://rdrr.io/r/base/with.html">with</a></span>(stats, {</span>
+<span id="cb12-4"><a href="#cb12-4"></a>    wordcloud<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/wordcloud/man/wordcloud.html">wordcloud</a></span>(term, count, <span class="dt">min.freq =</span> <span class="dv">500</span>,</span>
+<span id="cb12-5"><a href="#cb12-5"></a>                         <span class="dt">random.order =</span> <span class="ot">FALSE</span>, <span class="dt">rot.per =</span> <span class="fl">0.25</span>,</span>
+<span id="cb12-6"><a href="#cb12-6"></a>                         <span class="dt">colors =</span> RColorBrewer<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html">brewer.pal</a></span>(<span class="dv">8</span>, <span class="st">"Dark2"</span>))</span>
+<span id="cb12-7"><a href="#cb12-7"></a>})</span></code></pre></div>
 <div class="figure">
-<img src="chinese-wordcloud-1.png" alt="Word cloud"><p class="caption">Word cloud</p>
+<img src="chinese-wordcloud-1.png" alt=""><p class="caption">Word cloud</p>
 </div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">family =</span> font_family) <span class="co"># switch the font back</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">family =</span> font_family) <span class="co"># switch the font back</span></span></code></pre></div>
 </div>
 <div id="co-occurrences" class="section level2">
 <h2 class="hasAnchor">
 <a href="#co-occurrences" class="anchor"></a>Co-occurrences</h2>
 <p>Here are the terms that show up in sentences containing a particular term</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">sents &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_split.html">text_split</a></span>(data) <span class="co"># split text into sentences</span></a>
-<a class="sourceLine" id="cb14-2" title="2">subset &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_locate.html">text_subset</a></span>(sents, <span class="st">'\u6539\u9769'</span>) <span class="co"># select those with the term</span></a>
-<a class="sourceLine" id="cb14-3" title="3"><span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(subset) <span class="co"># count the word occurrences</span></a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>sents &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_split.html">text_split</a></span>(data) <span class="co"># split text into sentences</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>subset &lt;-<span class="st"> </span><span class="kw"><a href="../reference/text_locate.html">text_subset</a></span>(sents, <span class="st">'\u6539\u9769'</span>) <span class="co"># select those with the term</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="kw"><a href="../reference/term_stats.html">term_stats</a></span>(subset) <span class="co"># count the word occurrences</span></span></code></pre></div>
 <pre><code>   term count support
 1  改革  2931    2457
 2  发展   866     652
@@ -280,7 +280,7 @@
 <h2 class="hasAnchor">
 <a href="#keyword-in-context" class="anchor"></a>Keyword in context</h2>
 <p>Finally, here’s how we might show terms in their local context</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw"><a href="../reference/text_locate.html">text_locate</a></span>(data, <span class="st">"\u6027"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw"><a href="../reference/text_locate.html">text_locate</a></span>(data, <span class="st">"\u6027"</span>)</span></code></pre></div>
 <pre><code>   text            before            instance             after            
 1  1     …业方面的重要问题之一是计划    性    不足。我们现在还有许多计划不…
 2  1     …技术和提高劳动生产率的积极    性    ，对于发展经济建设很有害，因…

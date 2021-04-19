@@ -42,3 +42,4 @@
 ^\.Rproj\.user$
 cran-comments.md
 pkgdown/
+^CRAN-RELEASE$
