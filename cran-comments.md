@@ -5,17 +5,15 @@ version 0.10.2 adds `rmarkdown` to `SUGGESTS` per https://github.com/yihui/knitr
 ## Test environments
 
 - local OS X install, R 3.6.2
-- linux, R oldrel / release / devel (travis-ci)
-- windows server 2012, R 3.6.3 (appveyor)
+- linux, R oldrel (3.6.3) / release (4.0.2) / devel (travis-ci)
+- windows server 2012 R2 x64, R 4.0.5 (appveyor)
 
 ## R CMD check results
 
-No errors or warnings. 1 note regarding change in maintainer.
+No errors or warnings. 1 note:
+  Package which this enhances but not available for checking: ‘tm’
 
 ## Reverse dependencies
 
 - stylest
 - GenEst
-- crqanlp
-
-The bug fix resolves an error that would have been propagated downstream to the reverse dependencies.
