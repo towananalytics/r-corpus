@@ -10,8 +10,7 @@ version 0.10.2 adds `rmarkdown` to `SUGGESTS` per https://github.com/yihui/knitr
 
 ## R CMD check results
 
-No errors or warnings. 1 note:
-  Package which this enhances but not available for checking: ‘tm’
+No errors or warnings or notes.
 
 ## Reverse dependencies
 
