@@ -29,12 +29,13 @@ on_failure:
 platform:
   - x86
 
-matrix:
-  - R_VERSION: release
+environment:
+  global:
     R_ARCH: x64
+  matrix:
+    - R_VERSION: release
 
-  - R_VERSION: devel
-    R_ARCH: x64
+    - R_VERSION: devel
 
 artifacts:
   - path: '*.Rcheck\**\*.log'
