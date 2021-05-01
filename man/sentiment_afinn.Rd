@@ -19,7 +19,7 @@ must keep the adapted lexicon open and apply a similar license.
 }
 \usage{sentiment_afinn}
 \format{A data frame with one row for each term}
-\source{\url{https://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=6010}}
+\source{\url{https://www2.imm.dtu.dk/pubdb/pubs/6010-full.html}}
 \references{
 Finn \enc{Årup}{Aarup} Nielsen
 A new ANEW: Evaluation of a word list for sentiment analysis in microblogs.
