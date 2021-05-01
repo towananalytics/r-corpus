@@ -26,7 +26,7 @@ Installation
 
 ### Stable version
 
-*Corpus* is [available on CRAN][cran].To install the latest released version,
+*Corpus* is [available on CRAN][cran]. To install the latest released version,
 run the following command in R:
 
     install.packages("corpus")
@@ -111,9 +111,8 @@ This computation uses only a single CPU, yet it still completes in under three
 seconds.
 
 
-For a more complete introduction to the package, see the
-[getting started guide][corpus-intro] and the other articles at
-[corpustext.com](http://corpustext.com).
+For a more complete introduction to the package, see documentation and articles at
+[https://leslie-huang.github.io/r-corpus/](https://leslie-huang.github.io/r-corpus/).
 
 
 Citation
