@@ -138,20 +138,24 @@ test_that("'format' can handle marks", {
 
     ctype <- switch_ctype("C")
     on.exit(Sys.setlocale("LC_CTYPE", ctype))
-
+    
+    skip_on_os("windows")
     expect_equal(format(text, chars = 6, justify = "left"), "...")
+    
+    skip_on_os("windows")
     expect_equal(format(text, chars = 6, justify = "centre"), "...")
+    skip_on_os("windows")
     expect_equal(format(text, chars = 5, justify = "right"), "...")
 
     switch_ctype("UTF-8")
-    skip_on_os("windows")
     
+    skip_on_os("windows")
     expect_equal(format(text, chars = 1, justify = "left"), raw)
-    skip_on_os("windows")
     
+    skip_on_os("windows")
     expect_equal(format(text, chars = 1, justify = "centre"), raw)
-    skip_on_os("windows")
     
+    skip_on_os("windows")
     expect_equal(format(text, chars = 1, justify = "right"), raw)
 })
 
