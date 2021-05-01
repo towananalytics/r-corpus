@@ -133,7 +133,6 @@ test_that("'format' can handle ignorable code points", {
 
 
 test_that("'format' can handle marks", {
-    skip_on_os("windows")
     raw <- "\u1e0d\u0307"
     text <- as_corpus_text(raw)
 
@@ -145,9 +144,14 @@ test_that("'format' can handle marks", {
     expect_equal(format(text, chars = 5, justify = "right"), "...")
 
     switch_ctype("UTF-8")
-
+    skip_on_os("windows")
+    
     expect_equal(format(text, chars = 1, justify = "left"), raw)
+    skip_on_os("windows")
+    
     expect_equal(format(text, chars = 1, justify = "centre"), raw)
+    skip_on_os("windows")
+    
     expect_equal(format(text, chars = 1, justify = "right"), raw)
 })
 
