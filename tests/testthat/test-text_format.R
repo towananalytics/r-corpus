@@ -133,6 +133,7 @@ test_that("'format' can handle ignorable code points", {
 
 
 test_that("'format' can handle marks", {
+    skip_on_os("windows")
     raw <- "\u1e0d\u0307"
     text <- as_corpus_text(raw)
 
