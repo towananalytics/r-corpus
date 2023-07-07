@@ -100,7 +100,7 @@ static int stem_rfunc(const uint8_t *ptr, int len, const uint8_t **stemptr,
 {
 	SEXP str, inchr, outchr, fcall, ans;
 	struct stemmer *stemmer = context;
-	const uint8_t *stem;
+	const char *stem; 
 	struct utf8lite_message msg;
 	struct utf8lite_text text;
 	cetype_t ce;
