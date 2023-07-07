@@ -156,7 +156,7 @@ static int stem_rfunc(const uint8_t *ptr, int len, const uint8_t **stemptr,
 
 	PROTECT(outchr = STRING_ELT(ans, 0)); nprot++;
 	if (outchr != NA_STRING) {
-		stem = (const uint8_t *)CHAR(outchr);
+		stem = (const char *)CHAR(outchr);
 		stemlen = LENGTH(outchr);
 		ce = getCharCE(outchr);
 
@@ -167,7 +167,7 @@ static int stem_rfunc(const uint8_t *ptr, int len, const uint8_t **stemptr,
 
 		case CE_NATIVE:
 #if defined(_WIN32) || defined(_WIN64)
-			stem = (const uint8_t *)translateCharUTF8(outchr);
+			stem = (const char *)translateCharUTF8(outchr);
 			stemlen = (int)strlen(stem);
 #endif
 			break;
