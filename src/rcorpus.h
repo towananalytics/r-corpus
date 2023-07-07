@@ -36,7 +36,7 @@
 #include "corpus/src/symtab.h"
 #include "corpus/src/datatype.h"
 #include "corpus/src/data.h"
-#include "us/src/sentscan.h"
+#include "corpus/src/sentscan.h"
 #include "corpus/src/filter.h"
 #include "corpus/src/sentfilter.h"
 #include "corpus/src/search.h"
